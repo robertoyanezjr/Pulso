@@ -13,6 +13,11 @@ _Update this file whenever your weight, targets, or preferences change — it's 
 - Training: Tonal (resistance training), every other day, ~20 min/session
 - Family: married, two adult kids (27, 29)
 
+## Devices
+- **Smart ring:** generic/white-label model ("TK5 41CD"), not a recognized major brand (Oura/WHOOP/Ultrahuman) — no known public API. **Import path: screenshot of the app's home/health screen**, same as meals. Tracks sleep, resting HR, HRV, SpO2, blood pressure.
+- **Tonal:** no confirmed public API either (see `SETUP_GUIDE.md`). **Import path: screenshot the end-of-workout summary screen** (total volume, duration, calories) — a mid-set screenshot only shows one exercise, so the summary screen is the useful one to send.
+- Both log into the `Training & Recovery` tab in `Pulso-Macro-Tracker.xlsx`.
+
 ## Lifestyle
 - Sleep: in bed ~9:30pm, asleep ~10:30pm most nights — solid, consistent routine
 - Compliance: follows a plan well once it's clear — coaching can be direct/prescriptive, doesn't need much hand-holding

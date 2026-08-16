@@ -29,6 +29,12 @@ Open `PROFILE.md` and fill in the "Food preferences / restrictions" section (lik
 
 It's fully formula-driven off the Daily Log — fill in a day, everything above it updates on its own. "This week" / "this month" track today's date automatically, so you never have to point it at the right row.
 
+## 4c. Training & Recovery (ring + Tonal)
+Neither your smart ring nor Tonal has a confirmed public API for this coach to pull from directly, so both are **screenshot-logged**, same as meals:
+- **Ring:** screenshot the app's home/health screen (sleep, resting HR, HRV, SpO2, BP) whenever you check it.
+- **Tonal:** screenshot the **end-of-workout summary** screen (not mid-set) for total volume, duration, and calories.
+Send either to me in chat and I'll log it into the `Training & Recovery` tab.
+
 ## 5. Recalibrate every 2 weeks
 Weight and metabolism drift as you lose fat. Every 2 weeks, check the trend in your tracker:
 - Losing ~1 lb/week → targets are working, keep going.
