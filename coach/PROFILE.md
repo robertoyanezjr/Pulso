@@ -18,6 +18,13 @@ _Update this file whenever your weight, targets, or preferences change — it's 
 - **Tonal:** no confirmed public API either (see `SETUP_GUIDE.md`). **Import path: screenshot the end-of-workout summary screen** (total volume, duration, calories) — a mid-set screenshot only shows one exercise, so the summary screen is the useful one to send.
 - Both log into the `Training & Recovery` tab in `Pulso-Macro-Tracker.xlsx`.
 
+## Advisory Board
+A named panel that gives a simulated daily read on the log — clearly labeled as inference from each person's public work, never their real opinion or an actual review by them.
+
+Current roster: Mark Hyman, Benjamin Bikman, Rena Malik, Brad Schoenfeld, Peter Attia, Gary Brecka, Andy Galpin, Layne Norton, Andrew Huberman, Arthur C. Brooks, Chip Conley.
+
+**Governance:** each evaluated day gets a row in `Pulso-Macro-Tracker.xlsx → Advisory Board Log` (who flagged, who approved). Once 10+ real days are logged, the sheet's `Board Status` table flags any advisor silent for 10 straight days as `REVIEW`. That's a notify-Roberto trigger, not an auto-remove — the coach tells him who's been quiet and suggests possible replacements; he decides.
+
 ## Lifestyle
 - Sleep: in bed ~9:30pm, asleep ~10:30pm most nights — solid, consistent routine
 - Compliance: follows a plan well once it's clear — coaching can be direct/prescriptive, doesn't need much hand-holding
