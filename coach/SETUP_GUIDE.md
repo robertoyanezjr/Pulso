@@ -20,6 +20,15 @@ Open `PROFILE.md` and fill in the "Food preferences / restrictions" section (lik
 - I'll compare it to prior weeks and tell you if you're tracking toward 187 lb at a healthy pace, or if we need to tighten calories.
 - Log the weigh-in and daily totals in `Pulso-Macro-Tracker.xlsx` if you want a persistent written history outside the chat (the chat itself doesn't remember previous days once you close it — the spreadsheet is your long-term record).
 
+## 4b. The Dashboard
+`Pulso-Macro-Tracker.xlsx` has a **Dashboard** tab (opens by default) built for exactly this — progress vs. history, not just today's number:
+- **KPI tiles**: starting/current/goal weight, lbs lost, lbs to go, this week's avg calories & protein vs target, this month's weight change, days logged, days on-target, and weeks-to-goal from today
+- **4 charts**: weekly weight trend vs. your goal line, weekly avg calories vs. target, weekly avg protein vs. target, and a monthly weight-change bar chart
+- **Auto-generated recommendation** each week: on-pace, losing too fast, stalled, etc. — same logic as the recalibration rule below, just surfaced automatically
+- **Weekly Summary** and **Monthly Summary** tabs hold the full history the Dashboard is built from — browse those directly any time
+
+It's fully formula-driven off the Daily Log — fill in a day, everything above it updates on its own. "This week" / "this month" track today's date automatically, so you never have to point it at the right row.
+
 ## 5. Recalibrate every 2 weeks
 Weight and metabolism drift as you lose fat. Every 2 weeks, check the trend in your tracker:
 - Losing ~1 lb/week → targets are working, keep going.
