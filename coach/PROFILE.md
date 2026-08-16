@@ -21,7 +21,7 @@ _Update this file whenever your weight, targets, or preferences change — it's 
 ## Advisory Board
 A named panel that gives a simulated daily read on the log — clearly labeled as inference from each person's public work, never their real opinion or an actual review by them.
 
-Current roster: Mark Hyman, Benjamin Bikman, Rena Malik, Brad Schoenfeld, Peter Attia, Gary Brecka, Andy Galpin, Layne Norton, Andrew Huberman, Arthur C. Brooks, Chip Conley.
+Current roster: William Li, Mark Hyman, Benjamin Bikman, Rena Malik, Brad Schoenfeld, Peter Attia, Gary Brecka, Andy Galpin, Layne Norton, Andrew Huberman, Arthur C. Brooks, Chip Conley.
 
 **Governance:** each evaluated day gets a row in `Pulso-Macro-Tracker.xlsx → Advisory Board Log` (who flagged, who approved). Once 10+ real days are logged, the sheet's `Board Status` table flags any advisor silent for 10 straight days as `REVIEW`. That's a notify-Roberto trigger, not an auto-remove — the coach tells him who's been quiet and suggests possible replacements; he decides.
 
