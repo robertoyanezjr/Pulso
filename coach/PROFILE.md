@@ -29,7 +29,7 @@ Current roster: William Li, Jessie Inchauspé, Mark Hyman, Benjamin Bikman, Rena
 - Sleep: in bed ~9:30pm, asleep ~10:30pm most nights — solid, consistent routine
 - Compliance: follows a plan well once it's clear — coaching can be direct/prescriptive, doesn't need much hand-holding
 - Vitamins/supplements: none currently
-- Bloodwork: full panel drawn week of 2026-08-16; results expected ~2026-08-26 (following Wednesday) — plan to fold relevant markers (lipids, A1C, vitamin D, testosterone, etc.) into targets once available
+- Bloodwork: full panel drawn week of 2026-08-15; results expected ~2026-08-26 (following Wednesday) — plan to fold relevant markers (lipids, A1C, vitamin D, testosterone, etc.) into targets once available
 - Travel: on the road often; needs restaurant/no-kitchen strategies that hold the line on protein and processed food, not just "do your best"
 
 ## Coaching style
