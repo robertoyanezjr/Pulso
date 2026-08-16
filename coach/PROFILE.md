@@ -4,7 +4,7 @@
 _Update this file whenever your weight, targets, or preferences change — it's the source of truth the coach reads from._
 
 ## Stats
-- Age: 58
+- Age: 61
 - Sex: Male
 - Height: 5'8" (172.7 cm)
 - Current weight: 201 lb
@@ -23,16 +23,16 @@ Longevity / metabolic-health approach (Peter Attia / Andrew Huberman–style):
 ## Calculated targets
 Mifflin-St Jeor BMR, "lightly active" multiplier (sedentary desk job + resistance training every other day):
 
-- Estimated BMR: ~1,706 kcal
-- Estimated maintenance (TDEE): ~2,350 kcal/day
+- Estimated BMR: ~1,691 kcal (age 61)
+- Estimated maintenance (TDEE): ~2,325 kcal/day
 - Target deficit: ~500 kcal/day → ~1 lb/week fat loss (sustainable, muscle-preserving pace)
 
 | | Target |
 |---|---|
-| **Calories** | **1,850 kcal/day** |
-| **Protein** | **180–185 g** (~40%) — non-negotiable, hit this even if carbs/fat drift |
-| **Fat** | **60 g** (~29%) |
-| **Carbs** | **140–145 g** (~31%) — nudge +20g on Tonal days, −20g on rest days if you want to cycle |
+| **Calories** | **1,825 kcal/day** |
+| **Protein** | **~187 g** (~41%) — non-negotiable, hit this even if carbs/fat drift |
+| **Fat** | **~57 g** (~28%) |
+| **Carbs** | **~141 g** (~31%) — nudge +20g on Tonal days, −20g on rest days if you want to cycle |
 | **Fiber** | **35 g/day minimum** |
 | **Added sugar** | **under 25 g/day** |
 | **Alcohol** | minimize; budget ~150 kcal into the day's total if you have a drink |
