@@ -33,7 +33,9 @@ Supplementary (10-day-silent rule applies — see below): Recovery reading (ring
 ## Advisory Board
 A named panel that gives a simulated daily read on the log — clearly labeled as inference from each person's public work, never their real opinion or an actual review by them.
 
-Current roster: William Li, Jessie Inchauspé, Mark Hyman, Benjamin Bikman, Rena Malik, Brad Schoenfeld, Peter Attia, Gary Brecka, Andy Galpin, Layne Norton, Andrew Huberman, Arthur C. Brooks, Chip Conley.
+Current roster (trimmed 2026-08-18 for a leaner daily read): Peter Attia, Andrew Huberman, Layne Norton, Benjamin Bikman, Brad Schoenfeld, Gary Brecka.
+
+Retired, history preserved (not deleted) in `Advisory Board Log`: William Li, Jessie Inchauspé, Mark Hyman, Rena Malik, Andy Galpin, Arthur C. Brooks, Chip Conley — mostly single- or zero-flag voices, or angles (well-being/purpose) that didn't fit a lean nutrition/longevity dashboard. Can be reinstated any time; nothing about them was deleted.
 
 **Governance:** each evaluated day gets a row in `Pulso-Macro-Tracker.xlsx → Advisory Board Log` (who flagged, who approved). Once 10+ real days are logged, the sheet's `Board Status` table flags any advisor silent for 10 straight days as `REVIEW`. That's a notify-Roberto trigger, not an auto-remove — the coach tells him who's been quiet and suggests possible replacements; he decides.
 
