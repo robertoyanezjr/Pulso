@@ -26,7 +26,9 @@ Supplementary (10-day-silent rule applies — see below): Recovery reading (ring
 
 **10-day idle rule:** the `Field Status` table at the bottom of `Training & Recovery` tracks Last Logged / Days Idle / Status for each supplementary field. Any field that goes 10+ real days without new data flips to `REVIEW` — that's a notify-Roberto trigger, never an auto-drop. The coach names the idle field and asks whether to keep watching for it or retire it from the dashboard. Bloodwork's clock only starts after its first real entry, not from today — it's expected to be empty until ~8/26.
 
-**Panel updates:** the SENARA Health Read panel republishes the same turn any new data comes in — no batching, no waiting for "enough."
+**Panel updates:** the SENARA Health Read panel republishes the same turn any new data comes in — no batching, no waiting for "enough." It has no live clock of its own, so it does not roll over at midnight unattended — the next day's view appears the next time data is logged or the panel is asked for. Nothing is ever deleted: every day is permanent in `Daily Log`, every week permanent in `Weekly Summary`.
+
+**Week convention:** weeks run real Sunday–Saturday calendar weeks (not "7 days since day 1") — see `Weekly Summary` in `Pulso-Macro-Tracker.xlsx`. The panel's 7-Day Snapshot follows the same boundary.
 
 ## Advisory Board
 A named panel that gives a simulated daily read on the log — clearly labeled as inference from each person's public work, never their real opinion or an actual review by them.

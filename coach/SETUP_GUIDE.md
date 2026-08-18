@@ -25,7 +25,7 @@ Open `PROFILE.md` and fill in the "Food preferences / restrictions" section (lik
 - **KPI tiles**: starting/current/goal weight, lbs lost, lbs to go, this week's avg calories & protein vs target, this month's weight change, days logged, days on-target, and weeks-to-goal from today
 - **4 charts**: weekly weight trend vs. your goal line, weekly avg calories vs. target, weekly avg protein vs. target, and a monthly weight-change bar chart
 - **Auto-generated recommendation** each week: on-pace, losing too fast, stalled, etc. — same logic as the recalibration rule below, just surfaced automatically
-- **Weekly Summary** and **Monthly Summary** tabs hold the full history the Dashboard is built from — browse those directly any time
+- **Weekly Summary** and **Monthly Summary** tabs hold the full history the Dashboard is built from — browse those directly any time. Weeks run real Sunday–Saturday calendar weeks, not "7 days since you started."
 
 It's fully formula-driven off the Daily Log — fill in a day, everything above it updates on its own. "This week" / "this month" track today's date automatically, so you never have to point it at the right row.
 
