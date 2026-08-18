@@ -1,7 +1,9 @@
 # Nutrition & Training Profile — Roberto
 
-**Last updated:** 2026-08-16
+**Last updated:** 2026-08-17
 _Update this file whenever your weight, targets, or preferences change — it's the source of truth the coach reads from._
+
+**Mission:** not just a macro tracker — a simple optimization dashboard for a clean, healthy lifestyle aimed at longevity. Nutrition is the core mechanism; recovery, training, sleep, bloodwork, and daily activity are the supporting pillars.
 
 ## Stats
 - Age: 61
@@ -14,9 +16,17 @@ _Update this file whenever your weight, targets, or preferences change — it's 
 - Family: married, two adult kids (27, 29)
 
 ## Devices
-- **Smart ring:** generic/white-label model ("TK5 41CD"), not a recognized major brand (Oura/WHOOP/Ultrahuman) — no known public API. **Import path: screenshot of the app's home/health screen**, same as meals. Tracks sleep, resting HR, HRV, SpO2, blood pressure.
+- **Smart ring:** generic/white-label model ("TK5 41CD"), not a recognized major brand (Oura/WHOOP/Ultrahuman) — no known public API. **Import path: screenshot of the app's home/health screen**, same as meals. Tracks sleep, resting HR, HRV, SpO2, blood pressure, and usually step count.
 - **Tonal:** no confirmed public API either (see `SETUP_GUIDE.md`). **Import path: screenshot the end-of-workout summary screen** (total volume, duration, calories) — a mid-set screenshot only shows one exercise, so the summary screen is the useful one to send.
-- Both log into the `Training & Recovery` tab in `Pulso-Macro-Tracker.xlsx`.
+- All three log into the `Training & Recovery` tab in `Pulso-Macro-Tracker.xlsx` — sleep and steps included alongside the existing vitals/Tonal columns, same screenshot-based workflow.
+
+## Tracked fields & governance
+Core (always logged, never questioned regardless of gaps): nutrition, bodyweight.
+Supplementary (10-day-silent rule applies — see below): Recovery reading (ring: sleep, RHR, HRV, SpO2, BP), Steps, Tonal Training, Bloodwork.
+
+**10-day idle rule:** the `Field Status` table at the bottom of `Training & Recovery` tracks Last Logged / Days Idle / Status for each supplementary field. Any field that goes 10+ real days without new data flips to `REVIEW` — that's a notify-Roberto trigger, never an auto-drop. The coach names the idle field and asks whether to keep watching for it or retire it from the dashboard. Bloodwork's clock only starts after its first real entry, not from today — it's expected to be empty until ~8/26.
+
+**Panel updates:** the SENARA Health Read panel republishes the same turn any new data comes in — no batching, no waiting for "enough."
 
 ## Advisory Board
 A named panel that gives a simulated daily read on the log — clearly labeled as inference from each person's public work, never their real opinion or an actual review by them.
@@ -29,7 +39,7 @@ Current roster: William Li, Jessie Inchauspé, Mark Hyman, Benjamin Bikman, Rena
 - Sleep: in bed ~9:30pm, asleep ~10:30pm most nights — solid, consistent routine
 - Compliance: follows a plan well once it's clear — coaching can be direct/prescriptive, doesn't need much hand-holding
 - Vitamins/supplements: none currently
-- Bloodwork: full panel drawn week of 2026-08-15; results expected ~2026-08-26 (following Wednesday) — plan to fold relevant markers (lipids, A1C, vitamin D, testosterone, etc.) into targets once available
+- Bloodwork: full panel drawn week of 2026-08-15; results expected ~2026-08-26 (following Wednesday) — logs into the `Bloodwork` tab in `Pulso-Macro-Tracker.xlsx` (lipids, ApoB, hs-CRP, A1C, glucose, vitamin D, testosterone) once available; fold relevant markers into targets/coaching at that point
 - Travel: on the road often; needs restaurant/no-kitchen strategies that hold the line on protein and processed food, not just "do your best"
 
 ## Coaching style
