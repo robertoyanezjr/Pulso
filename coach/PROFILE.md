@@ -43,7 +43,7 @@ Retired, history preserved (not deleted) in `Advisory Board Log`: William Li, Je
 - Sleep: in bed ~9:30pm, asleep ~10:30pm most nights — solid, consistent routine
 - Compliance: follows a plan well once it's clear — coaching can be direct/prescriptive, doesn't need much hand-holding
 - Vitamins/supplements: none currently
-- Bloodwork: full panel drawn week of 2026-08-15; results expected ~2026-08-26 (following Wednesday) — logs into the `Bloodwork` tab in `Pulso-Macro-Tracker.xlsx` (lipids, ApoB, hs-CRP, A1C, glucose, vitamin D, testosterone) once available; fold relevant markers into targets/coaching at that point
+- Bloodwork: panel drawn 2026-08-13, preliminary results back 2026-08-18 (logged in the `Bloodwork` tab). No lipid panel this round; A1C 5.6% (top of normal), glucose 104 mg/dL flagged High but fasting status wasn't recorded so it's not conclusive on its own, vitamin D 30.8, testosterone 631 (free 10.2). ApoB and cardiac hs-CRP are still pending ("Will Follow") — update the row again once those post, and flag the glucose reading + full panel to Dr. Aldrich at that point. Not medical advice.
 - Travel: on the road often; needs restaurant/no-kitchen strategies that hold the line on protein and processed food, not just "do your best"
 
 ## Coaching style
