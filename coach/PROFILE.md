@@ -9,8 +9,9 @@ _Update this file whenever your weight, targets, or preferences change — it's 
 - Age: 61
 - Sex: Male
 - Height: 5'8" (172.7 cm) — _confirm if "58" in chat meant something else_
-- Current weight: 201 lb
-- Goal weight: 187 lb (−14 lb)
+- Current weight: 198 lb (as of 2026-08-19)
+- Goal weight: 187 lb (−11 lb)
+- Waist: 40 in (first reading, 2026-08-19)
 - Occupation: Executive, desktop job (sedentary most of the day), frequent business travel
 - Training: Tonal (resistance training), every other day, ~20 min/session
 - Family: married, two adult kids (27, 29)
@@ -22,7 +23,7 @@ _Update this file whenever your weight, targets, or preferences change — it's 
 
 ## Tracked fields & governance
 Core (always logged, never questioned regardless of gaps): nutrition, bodyweight.
-Supplementary (10-day-silent rule applies — see below): Recovery reading (ring: sleep, RHR, HRV, SpO2, BP), Steps, Tonal Training, Bloodwork.
+Supplementary (10-day-silent rule applies — see below): Recovery reading (ring: sleep, RHR, HRV, SpO2, BP), Steps, Tonal Training, Bloodwork, Waist circumference (added 2026-08-19 — logs into `Daily Log` column N alongside weight, same sheet/workflow).
 
 **10-day idle rule:** the `Field Status` table at the bottom of `Training & Recovery` tracks Last Logged / Days Idle / Status for each supplementary field. Any field that goes 10+ real days without new data flips to `REVIEW` — that's a notify-Roberto trigger, never an auto-drop. The coach names the idle field and asks whether to keep watching for it or retire it from the dashboard. Bloodwork's clock only starts after its first real entry, not from today — it's expected to be empty until ~8/26.
 
@@ -74,7 +75,7 @@ Mifflin-St Jeor BMR, "lightly active" multiplier (sedentary desk job + resistanc
 Recalculate every 2 weeks against your actual weigh-in trend (see `SETUP_GUIDE.md`).
 
 ## Pace to goal
-14 lb at ~1 lb/week ≈ 14 weeks → roughly **late November 2026**. That's a sound, muscle-preserving pace for a 61-year-old lifting every other day — this is not an aggressive or unrealistic target, it's the right speed. A faster cut (~1,600 kcal/day) is possible but raises the risk of muscle loss and burnout at your training frequency, so it's not the default recommendation.
+11 lb at ~1 lb/week ≈ 11 weeks → roughly **early November 2026**, updated 2026-08-19 off the 198 lb weigh-in (was 14 lb / late Nov off the 8/15 reading). The 201→198 move in 4 days is faster than the 1 lb/week target — normal for the first week and likely includes some water/travel effect, not pure fat loss. Don't recalibrate the daily targets off one reading; hold the plan and re-check the trend at the next 2-week mark (see `SETUP_GUIDE.md`). A faster cut (~1,600 kcal/day) is possible but raises the risk of muscle loss and burnout at your training frequency, so it's not the default recommendation.
 
 ## Food preferences / restrictions
 - **Proteins (liked):** salmon, NY strip steak, ground beef, egg whites with one whole egg (breakfast go-to), hard-boiled eggs
