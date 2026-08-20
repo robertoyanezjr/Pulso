@@ -44,7 +44,7 @@ Retired, history preserved (not deleted) in `Advisory Board Log`: William Li, Je
 - Sleep: in bed ~9:30pm, asleep ~10:30pm most nights — solid, consistent routine
 - Compliance: follows a plan well once it's clear — coaching can be direct/prescriptive, doesn't need much hand-holding
 - Vitamins/supplements: none currently
-- Bloodwork: panel drawn 2026-08-13, preliminary results back 2026-08-18 (logged in the `Bloodwork` tab). No lipid panel this round; A1C 5.6% (top of normal), glucose 104 mg/dL flagged High but fasting status wasn't recorded so it's not conclusive on its own, vitamin D 30.8, testosterone 631 (free 10.2). ApoB and cardiac hs-CRP are still pending ("Will Follow") — update the row again once those post, and flag the glucose reading + full panel to Dr. Aldrich at that point. Not medical advice.
+- Bloodwork: panel drawn 2026-08-13, **final** report back 2026-08-19 (logged in the `Bloodwork` tab). No lipid panel this round. Headline finding: **ApoB 130 mg/dL, flagged High** (desirable <90, high 100–130) — the primary cardiovascular risk marker in this dashboard's Attia-influenced coaching style, worth raising with Dr. Aldrich directly. Cardiac hs-CRP 0.84 mg/L is Low risk (good, low inflammation). Also: A1C 5.6% (top of normal), glucose 104 mg/dL flagged High but fasting status wasn't recorded so it's not conclusive alone, vitamin D 30.8, testosterone 631 (free 10.2), IGF-1 167 (normal). Not medical advice — flag ApoB + glucose to Dr. Aldrich.
 - Travel: on the road often; needs restaurant/no-kitchen strategies that hold the line on protein and processed food, not just "do your best"
 
 ## Coaching style
