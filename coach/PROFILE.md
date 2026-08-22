@@ -23,7 +23,9 @@ _Update this file whenever your weight, targets, or preferences change — it's 
 
 ## Tracked fields & governance
 Core (always logged, never questioned regardless of gaps): nutrition, bodyweight.
-Supplementary (10-day-silent rule applies — see below): Recovery reading (ring: sleep, RHR, HRV, SpO2, BP), Steps, Tonal Training, Bloodwork, Waist circumference (added 2026-08-19 — logs into `Daily Log` column N alongside weight, same sheet/workflow).
+Supplementary (10-day-silent rule applies — see below): Recovery reading (ring: sleep, RHR, HRV, SpO2, BP), Tonal Training, Bloodwork, Waist circumference (added 2026-08-19 — logs into `Daily Log` column N alongside weight, same sheet/workflow).
+
+**Steps — dropped 2026-08-21.** Never once logged in the week it was on the dashboard; retired per Roberto's own review rather than waiting out the 10-day idle clock. History preserved (there was none to lose) — the `Field Status` row shows it as retired, same treatment as a retired Advisory Board member.
 
 **10-day idle rule:** the `Field Status` table at the bottom of `Training & Recovery` tracks Last Logged / Days Idle / Status for each supplementary field. Any field that goes 10+ real days without new data flips to `REVIEW` — that's a notify-Roberto trigger, never an auto-drop. The coach names the idle field and asks whether to keep watching for it or retire it from the dashboard. Bloodwork's clock only starts after its first real entry, not from today — it's expected to be empty until ~8/26.
 
