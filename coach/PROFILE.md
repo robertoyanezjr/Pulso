@@ -58,23 +58,20 @@ Longevity / metabolic-health approach (Peter Attia / Andrew Huberman–style):
 - Judge progress on the **weekly weight trend**, not single-day swings
 
 ## Calculated targets
-Mifflin-St Jeor BMR, "lightly active" multiplier (sedentary desk job + resistance training every other day):
+**Revised 2026-08-22** (manual update, replacing the raw Mifflin-St Jeor output below — protein moved down, fat and carbs moved up):
 
-- Estimated BMR: ~1,691 kcal (age 61)
-- Estimated maintenance (TDEE): ~2,325 kcal/day
-- Target deficit: ~500 kcal/day → ~1 lb/week fat loss (sustainable, muscle-preserving pace)
+| | Target | Working range |
+|---|---|---|
+| **Calories** | **1,850 kcal/day** | 1,800–1,900 |
+| **Protein** | **155 g** (~34%) | 150–160 g |
+| **Carbs** | **160 g** (~35%) | 145–175 g |
+| **Fat** | **65 g** (~32%) | 55–65 g |
+| **Fiber** | **35 g/day minimum** | 30–40 g |
+| **Saturated fat** | **≤12 g/day** (new field) | lower is better within a balanced diet |
+| **Added sugar** | **≤20–25 g/day**, lower preferred | — |
+| **Alcohol** | minimize; budget ~150 kcal into the day's total if you have a drink | — |
 
-| | Target |
-|---|---|
-| **Calories** | **1,825 kcal/day** |
-| **Protein** | **~187 g** (~41%) — non-negotiable, hit this even if carbs/fat drift |
-| **Fat** | **~57 g** (~28%) |
-| **Carbs** | **~141 g** (~31%) — nudge +20g on Tonal days, −20g on rest days if you want to cycle |
-| **Fiber** | **35 g/day minimum** |
-| **Added sugar** | **under 25 g/day** |
-| **Alcohol** | minimize; budget ~150 kcal into the day's total if you have a drink |
-
-Recalculate every 2 weeks against your actual weigh-in trend (see `SETUP_GUIDE.md`).
+Was 1,825 kcal / 187g protein / 141g carbs / 57g fat / <25g added sugar (Mifflin-St Jeor BMR ~1,691 kcal, TDEE ~2,325 kcal, ~500 kcal deficit, "lightly active" multiplier — see `Pulso-Macro-Tracker.xlsx → Targets` for the underlying calc, kept as reference; the revised numbers above are now the live targets used everywhere in the panel and spreadsheet). Recalculate every 2 weeks against your actual weigh-in trend (see `SETUP_GUIDE.md`).
 
 ## Pace to goal
 11 lb at ~1 lb/week ≈ 11 weeks → roughly **early November 2026**, updated 2026-08-19 off the 198 lb weigh-in (was 14 lb / late Nov off the 8/15 reading). The 201→198 move in 4 days is faster than the 1 lb/week target — normal for the first week and likely includes some water/travel effect, not pure fat loss. Don't recalibrate the daily targets off one reading; hold the plan and re-check the trend at the next 2-week mark (see `SETUP_GUIDE.md`). A faster cut (~1,600 kcal/day) is possible but raises the risk of muscle loss and burnout at your training frequency, so it's not the default recommendation.
