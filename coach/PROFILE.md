@@ -67,9 +67,9 @@ Longevity / metabolic-health approach (Peter Attia / Andrew Huberman–style):
 | **Carbs** | **160 g** (~35%) | 145–175 g |
 | **Fat** | **65 g** (~32%) | 55–65 g |
 | **Fiber** | **35 g/day minimum** | 30–40 g |
-| **Saturated fat** | **≤12 g/day** (new field) | lower is better within a balanced diet |
-| **Added sugar** | **≤20–25 g/day**, lower preferred | — |
 | **Alcohol** | minimize; budget ~150 kcal into the day's total if you have a drink | — |
+
+Recorded but **not tracked day-to-day** (per Roberto, 2026-08-22): saturated fat (≤12 g/day) and added sugar (≤20–25 g/day, lower preferred). Meal estimates only break out total fat and total carbs — no per-meal saturated-fat/added-sugar split, and neither shows on the panel. Revisit if he wants that estimation started.
 
 Was 1,825 kcal / 187g protein / 141g carbs / 57g fat / <25g added sugar (Mifflin-St Jeor BMR ~1,691 kcal, TDEE ~2,325 kcal, ~500 kcal deficit, "lightly active" multiplier — see `Pulso-Macro-Tracker.xlsx → Targets` for the underlying calc, kept as reference; the revised numbers above are now the live targets used everywhere in the panel and spreadsheet). Recalculate every 2 weeks against your actual weigh-in trend (see `SETUP_GUIDE.md`).
 
