@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pulso — Social Listening Screener</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page-plane:     #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --muted:          #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --card-border:    rgba(11,11,11,0.08);
+
+    --series-1: #2a78d6; /* YouTube */
+    --series-2: #eb6834; /* Facebook */
+    --series-3: #1baf7a; /* Instagram */
+    --series-4: #eda100; /* TikTok */
+    --series-5: #e87ba4; /* X */
+
+    --status-good:     #0ca30c;
+    --status-warning:  #fab219;
+    --status-serious:  #ec835a;
+    --status-critical: #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page-plane:     #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --muted:          #898781;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --card-border:    rgba(255,255,255,0.10);
+
+      --series-1: #3987e5;
+      --series-2: #d95926;
+      --series-3: #199e70;
+      --series-4: #c98500;
+      --series-5: #d55181;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--page-plane);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  body { overflow-x: hidden; }
+
+  a { color: inherit; }
+
+  .app {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 20px 20px 60px;
+  }
+
+  header.topbar {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 6px 2px 18px;
+    border-bottom: 1px solid var(--card-border);
+    margin-bottom: 20px;
+  }
+  header.topbar .brand {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  header.topbar h1 {
+    font-size: 20px;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  header.topbar .tag {
+    font-size: 12px;
+    color: var(--text-secondary);
+    background: var(--surface-1);
+    border: 1px solid var(--card-border);
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+  header.topbar .demo-flag {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--status-warning);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  header.topbar .demo-flag .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--status-warning);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .layout { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .card + .card { margin-top: 20px; }
+  .card h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-secondary);
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+  .card h3 {
+    font-size: 14px;
+    margin: 0 0 10px;
+    font-weight: 600;
+  }
+
+  label.field-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 14px 0 6px;
+  }
+  label.field-label:first-of-type { margin-top: 0; }
+
+  input[type="text"], input[type="date"], input[type="time"] {
+    width: 100%;
+    background: var(--page-plane);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 13px;
+    font-family: inherit;
+  }
+  input:focus { outline: 2px solid var(--series-1); outline-offset: 1px; }
+
+  .kw-row { display: flex; gap: 6px; }
+  .kw-row button.add-btn {
+    flex-shrink: 0;
+    border: 1px solid var(--card-border);
+    background: var(--page-plane);
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .kw-row button.add-btn:hover { border-color: var(--series-1); }
+
+  .chips {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 8px;
+    min-height: 20px;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--page-plane);
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    padding: 4px 6px 4px 10px;
+    font-size: 12px;
+  }
+  .chip button {
+    border: none; background: transparent; color: var(--muted);
+    cursor: pointer; font-size: 13px; line-height: 1; padding: 2px;
+    border-radius: 50%;
+  }
+  .chip button:hover { color: var(--status-critical); }
+  .chip-empty-hint { font-size: 12px; color: var(--muted); }
+
+  .platform-list { display: flex; flex-direction: column; gap: 8px; }
+  .platform-row {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .platform-row input { accent-color: var(--series-1); width: 15px; height: 15px; }
+  .swatch { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  .preset-row { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+  .preset-btn {
+    font-size: 11px;
+    border: 1px solid var(--card-border);
+    background: var(--page-plane);
+    color: var(--text-secondary);
+    border-radius: 999px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .preset-btn:hover { border-color: var(--series-1); color: var(--text-primary); }
+  .date-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  .run-btn {
+    width: 100%;
+    margin-top: 18px;
+    background: var(--series-1);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 11px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .run-btn:hover { filter: brightness(1.08); }
+  .run-btn:disabled { opacity: 0.5; cursor: not-allowed; filter: none; }
+  .clear-btn {
+    width: 100%;
+    margin-top: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 9px;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .clear-btn:hover { color: var(--text-primary); border-color: var(--muted); }
+
+  .form-error {
+    font-size: 12px;
+    color: var(--status-critical);
+    margin-top: 10px;
+    display: none;
+  }
+
+  /* ---- results ---- */
+  #results { display: none; }
+  #results.visible { display: block; }
+
+  .empty-state {
+    text-align: center;
+    padding: 70px 20px;
+    color: var(--text-secondary);
+  }
+  .empty-state .glyph { font-size: 34px; margin-bottom: 10px; }
+  .empty-state h3 { color: var(--text-primary); margin: 0 0 6px; font-size: 16px; }
+  .empty-state p { margin: 0; font-size: 13px; max-width: 380px; margin-inline: auto; }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 700px) { .stat-row { grid-template-columns: 1fr 1fr; } }
+  .stat-tile {
+    background: var(--surface-1);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+  .stat-tile .label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.03em; }
+  .stat-tile .value { font-size: 22px; font-weight: 600; margin-top: 4px; font-variant-numeric: proportional-nums; }
+  .stat-tile .sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  .top-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 760px) { .top-grid { grid-template-columns: 1fr; } }
+
+  /* gauge */
+  .gauge-wrap { display: flex; flex-direction: column; align-items: center; }
+  .gauge-readout { text-align: center; margin-top: -8px; }
+  .gauge-score { font-size: 30px; font-weight: 700; }
+  .gauge-state { font-size: 13px; font-weight: 600; margin-top: 2px; }
+  .gauge-legend { display: flex; gap: 14px; margin-top: 10px; font-size: 11px; color: var(--text-secondary); }
+  .gauge-legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .gauge-legend .dot { width: 8px; height: 8px; border-radius: 2px; }
+
+  /* sentiment */
+  .sent-bar { display: flex; height: 22px; border-radius: 6px; overflow: hidden; border: 1px solid var(--card-border); }
+  .sent-bar div { height: 100%; }
+  .sent-legend { display: flex; justify-content: space-between; margin-top: 12px; font-size: 12px; }
+  .sent-legend .item { display: flex; align-items: center; gap: 6px; }
+  .sent-legend .dot { width: 9px; height: 9px; border-radius: 2px; }
+  .sent-legend .pct { font-weight: 700; margin-left: 3px; }
+  .sent-note { font-size: 12px; color: var(--muted); margin-top: 12px; line-height: 1.5; }
+
+  /* chart card header w/ table toggle */
+  .chart-head {
+    display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;
+  }
+  .table-toggle {
+    font-size: 11px;
+    border: 1px solid var(--card-border);
+    background: var(--page-plane);
+    color: var(--text-secondary);
+    border-radius: 999px;
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+  .table-toggle:hover { color: var(--text-primary); }
+
+  .trend-legend {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .trend-legend button {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px;
+    background: transparent; border: none; cursor: pointer;
+    color: var(--text-primary);
+    padding: 3px 6px;
+    border-radius: 6px;
+  }
+  .trend-legend button.off { color: var(--muted); }
+  .trend-legend button.off .swatch { opacity: 0.25; }
+  .trend-legend button:hover { background: var(--page-plane); }
+
+  svg.chart { width: 100%; height: auto; display: block; overflow: visible; }
+  .axis-label { fill: var(--muted); font-size: 10px; }
+  .gridline { stroke: var(--gridline); stroke-width: 1; }
+  .baseline { stroke: var(--baseline); stroke-width: 1; }
+
+  .tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: var(--surface-1);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 11px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    z-index: 5;
+    display: none;
+    min-width: 130px;
+  }
+  .tooltip .t-date { font-weight: 700; margin-bottom: 4px; }
+  .tooltip .t-row { display: flex; justify-content: space-between; gap: 10px; }
+  .tooltip .t-row .n { display: flex; align-items: center; gap: 5px; color: var(--text-secondary); }
+  .tooltip .t-row .n .dot { width: 7px; height: 7px; border-radius: 2px; }
+  .chart-container { position: relative; }
+
+  table.data-table {
+    width: 100%; border-collapse: collapse; font-size: 12px;
+  }
+  table.data-table th, table.data-table td {
+    text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--gridline);
+  }
+  table.data-table th { color: var(--text-secondary); font-weight: 600; }
+
+  /* platform bars */
+  .pbar-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .pbar-row:last-child { margin-bottom: 0; }
+  .pbar-label { width: 84px; flex-shrink: 0; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+  .pbar-track { flex: 1; background: var(--page-plane); border-radius: 4px; height: 10px; overflow: hidden; }
+  .pbar-fill { height: 100%; border-radius: 4px; }
+  .pbar-value { width: 54px; text-align: right; font-size: 12px; font-variant-numeric: tabular-nums; color: var(--text-secondary); flex-shrink: 0; }
+
+  /* feed */
+  .feed-filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+  .filter-chip {
+    font-size: 11px;
+    border: 1px solid var(--card-border);
+    background: var(--page-plane);
+    color: var(--text-secondary);
+    border-radius: 999px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  .filter-chip.active { background: var(--series-1); color: #fff; border-color: var(--series-1); }
+  .feed-list { display: flex; flex-direction: column; gap: 10px; max-height: 560px; overflow-y: auto; padding-right: 4px; }
+  .feed-item {
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    background: var(--page-plane);
+  }
+  .feed-item .fi-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+  .fi-plat { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; }
+  .fi-plat .swatch { width: 8px; height: 8px; border-radius: 2px; }
+  .fi-handle { font-size: 12px; color: var(--text-secondary); }
+  .fi-time { font-size: 11px; color: var(--muted); }
+  .fi-text { font-size: 13px; line-height: 1.5; margin-bottom: 8px; }
+  .fi-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .fi-eng { font-size: 11px; color: var(--muted); display: flex; gap: 10px; }
+  .sent-badge { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; padding: 2px 7px; border-radius: 999px; }
+  .sent-badge.positive { background: rgba(12,163,12,0.14); color: var(--status-good); }
+  .sent-badge.neutral { background: rgba(137,135,129,0.16); color: var(--muted); }
+  .sent-badge.negative { background: rgba(208,59,59,0.14); color: var(--status-critical); }
+  .export-row { display: flex; justify-content: flex-end; margin-top: 10px; }
+  .export-btn {
+    font-size: 12px;
+    border: 1px solid var(--card-border);
+    background: var(--surface-1);
+    color: var(--text-secondary);
+    border-radius: 8px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  .export-btn:hover { color: var(--text-primary); }
+
+  /* about / how-to-go-live */
+  details.about {
+    margin-top: 26px;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    background: var(--surface-1);
+    padding: 14px 16px;
+  }
+  details.about summary {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    list-style: none;
+  }
+  details.about summary::-webkit-details-marker { display: none; }
+  details.about summary:before { content: "▸ "; }
+  details.about[open] summary:before { content: "▾ "; }
+  .about-body { margin-top: 12px; font-size: 13px; line-height: 1.6; color: var(--text-secondary); }
+  .about-body h4 { color: var(--text-primary); font-size: 13px; margin: 14px 0 4px; }
+  .about-body h4:first-child { margin-top: 0; }
+  .about-body ul { margin: 4px 0; padding-left: 18px; }
+  .path-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 1px 7px;
+    border-radius: 999px;
+    margin-right: 6px;
+  }
+  .path-tag.easy { background: rgba(12,163,12,0.14); color: var(--status-good); }
+  .path-tag.paid { background: rgba(250,178,25,0.18); color: #a5680a; }
+  .path-tag.risky { background: rgba(208,59,59,0.14); color: var(--status-critical); }
+  @media (prefers-color-scheme: dark) {
+    .path-tag.paid { color: var(--status-warning); }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <h1>Pulso</h1>
+      <span class="tag">Social Listening Screener</span>
+    </div>
+    <div class="demo-flag"><span class="dot"></span> Running on sample data — see "How to connect real data" below</div>
+  </header>
+
+  <div class="layout">
+
+    <!-- LEFT: query builder -->
+    <div class="card" id="query-card">
+      <h2>Build your scan</h2>
+
+      <label class="field-label" for="kw-input">Keywords &amp; hashtags</label>
+      <div class="kw-row">
+        <input type="text" id="kw-input" placeholder="e.g. #EVlaunch or brand name" maxlength="60">
+        <button class="add-btn" id="kw-add">Add</button>
+      </div>
+      <div class="chips" id="kw-chips">
+        <span class="chip-empty-hint">No keywords yet — add at least one.</span>
+      </div>
+
+      <label class="field-label">Platforms</label>
+      <div class="platform-list" id="platform-list"></div>
+
+      <label class="field-label">Timeframe</label>
+      <div class="preset-row">
+        <button class="preset-btn" data-preset="24h">Last 24h</button>
+        <button class="preset-btn" data-preset="7d">Last 7 days</button>
+        <button class="preset-btn" data-preset="30d">Last 30 days</button>
+      </div>
+      <div class="date-grid" style="margin-top:10px;">
+        <div>
+          <label class="field-label" style="margin-top:0;">Start date</label>
+          <input type="date" id="start-date">
+        </div>
+        <div>
+          <label class="field-label" style="margin-top:0;">Start time</label>
+          <input type="time" id="start-time" value="00:00">
+        </div>
+        <div>
+          <label class="field-label" style="margin-top:0;">End date</label>
+          <input type="date" id="end-date">
+        </div>
+        <div>
+          <label class="field-label" style="margin-top:0;">End time</label>
+          <input type="time" id="end-time" value="23:59">
+        </div>
+      </div>
+
+      <div class="form-error" id="form-error"></div>
+      <button class="run-btn" id="run-btn" disabled>Run scan</button>
+      <button class="clear-btn" id="clear-btn">Reset</button>
+    </div>
+
+    <!-- RIGHT: results -->
+    <div>
+      <div class="empty-state" id="empty-state">
+        <div class="glyph">📡</div>
+        <h3>No scan run yet</h3>
+        <p>Add at least one keyword, pick your platforms and timeframe on the left, then hit <strong>Run scan</strong> to see the temperature, sentiment, trend and mentions for your topic.</p>
+      </div>
+
+      <div id="results">
+        <div class="stat-row" id="stat-row"></div>
+
+        <div class="top-grid">
+          <div class="card">
+            <h2>Buzz temperature</h2>
+            <div class="gauge-wrap">
+              <svg id="gauge-svg" class="chart" viewBox="0 0 200 130"></svg>
+              <div class="gauge-readout">
+                <div class="gauge-score" id="gauge-score">—</div>
+                <div class="gauge-state" id="gauge-state">—</div>
+              </div>
+              <div class="gauge-legend">
+                <span><span class="dot" style="background:var(--muted)"></span>Quiet</span>
+                <span><span class="dot" style="background:var(--status-warning)"></span>Warming</span>
+                <span><span class="dot" style="background:var(--status-critical)"></span>Hot</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Sentiment breakdown</h2>
+            <div class="sent-bar" id="sent-bar"></div>
+            <div class="sent-legend" id="sent-legend"></div>
+            <div class="sent-note">Share of sample mentions read as positive, neutral or negative toward the topic, aggregated across selected platforms.</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="chart-head">
+            <h2 style="margin:0;">Volume trend over time</h2>
+            <button class="table-toggle" id="trend-table-toggle">View as table</button>
+          </div>
+          <div class="trend-legend" id="trend-legend"></div>
+          <div class="chart-container">
+            <svg id="trend-svg" class="chart" viewBox="0 0 800 300"></svg>
+            <div id="trend-table-wrap" style="display:none; max-height:320px; overflow:auto;"></div>
+            <div class="tooltip" id="trend-tooltip"></div>
+          </div>
+        </div>
+
+        <div class="top-grid">
+          <div class="card">
+            <h2>Mentions by platform</h2>
+            <div id="platform-bars"></div>
+          </div>
+
+          <div class="card">
+            <h2>Top platform this window</h2>
+            <div id="top-platform-block" style="font-size:13px; color:var(--text-secondary); line-height:1.6;"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Sample mention feed</h2>
+          <div class="feed-filters" id="feed-filters"></div>
+          <div class="feed-list" id="feed-list"></div>
+          <div class="export-row">
+            <button class="export-btn" id="export-btn">Export sample mentions (CSV)</button>
+          </div>
+        </div>
+      </div>
+
+      <details class="about">
+        <summary>How this demo works &amp; how to connect real data</summary>
+        <div class="about-body">
+          <h4>What you're looking at right now</h4>
+          <p>This screener runs entirely in your browser, with no server and no internet calls. The gauge, sentiment split, trend chart and mention feed are all <strong>generated sample data</strong>, seeded from your keywords, platforms and date range so the same inputs always produce the same demo results. It's here so you can shape the exact inputs, layout and metrics you want before wiring in a real data source.</p>
+
+          <h4>Why a local HTML file can't scrape live platforms</h4>
+          <p>Browsers block a page from one site (a local file, in this case) from silently fetching content off another site's servers, and none of Facebook, Instagram, TikTok or X serve their content to anonymous scripts anyway — most of it sits behind a login and gets rendered by JavaScript on their end. Pulling it programmatically without permission also runs against those platforms' terms of service. So this needs to change at the data layer, not the UI — the screener above is designed so the front end doesn't need to change when you do.</p>
+
+          <h4>Three real paths, in order of how easy they are to stand up</h4>
+          <p><span class="path-tag easy">Free &amp; sanctioned</span><strong>Official APIs, where they exist.</strong> The <strong>YouTube Data API</strong> is free and gives you real comment/video search by keyword — the most realistic first step. X (Twitter) has a paid API tier (starts around $100/mo) for search access. Facebook and Instagram's Graph API mainly exposes content you or your Page/Business account own, not public search across the platform. TikTok has no public search API.</p>
+          <ul>
+            <li>Needs: API keys (free for YouTube) and a small backend or serverless function to call them from — keys can't safely live in a plain HTML file.</li>
+          </ul>
+          <p><span class="path-tag paid">Paid, does this exactly</span><strong>A licensed social listening vendor</strong> (e.g. Brandwatch, Meltwater, Talkwalker, Sprout Social, Mentionlytics). These companies have data-licensing deals with the platforms specifically to do cross-platform keyword/hashtag listening, sentiment and trend scoring — it's their whole product. Most offer an API or CSV export you could pipe straight into a dashboard shaped like this one.</p>
+          <ul>
+            <li>Needs: a subscription, no scraping involved, fastest path to genuinely reliable cross-platform data.</li>
+          </ul>
+          <p><span class="path-tag risky">Do-it-yourself, fragile &amp; risky</span><strong>A custom backend that fetches public pages directly.</strong> Technically possible for a narrow slice of always-public content (e.g. public YouTube pages, some public X posts), but it's fragile (breaks whenever the platform changes its markup), typically requires headless-browser automation to render JavaScript, and for Instagram/Facebook/TikTok/X in particular tends to violate their terms of service — which risks IP/account blocks and, depending on how it's used, legal exposure. Not recommended as your primary path.</li>
+          </ul>
+
+          <h4>Suggested next step</h4>
+          <p>Tell me which topics matter most and I can wire this UI up to the real YouTube Data API first (it's free and legitimate), while you evaluate a listening vendor for the platforms YouTube's API can't cover. That gets you one real data source today without any legal or reliability risk, using this exact dashboard.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------------------------------------------------------------------
+  // Platform config (fixed categorical color order, per design system)
+  // ---------------------------------------------------------------------
+  var PLATFORMS = [
+    { id: "youtube",   label: "YouTube",   var: "--series-1", weight: 1.0, eng: ["views", "comments"] },
+    { id: "facebook",  label: "Facebook",  var: "--series-2", weight: 0.8, eng: ["likes", "shares"] },
+    { id: "instagram", label: "Instagram", var: "--series-3", weight: 1.3, eng: ["likes", "comments"] },
+    { id: "tiktok",    label: "TikTok",    var: "--series-4", weight: 1.6, eng: ["likes", "shares"] },
+    { id: "x",         label: "X",         var: "--series-5", weight: 1.1, eng: ["likes", "reposts"] }
+  ];
+
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  // ---------------------------------------------------------------------
+  // State
+  // ---------------------------------------------------------------------
+  var state = {
+    keywords: [],
+    trendVisible: {}, // platformId -> bool
+    feedFilter: { platform: "all", sentiment: "all" },
+    dataset: null
+  };
+  PLATFORMS.forEach(function (p) { state.trendVisible[p.id] = true; });
+
+  // ---------------------------------------------------------------------
+  // Build platform checkboxes
+  // ---------------------------------------------------------------------
+  var platformListEl = document.getElementById("platform-list");
+  PLATFORMS.forEach(function (p) {
+    var row = document.createElement("label");
+    row.className = "platform-row";
+    row.innerHTML =
+      '<input type="checkbox" checked data-platform="' + p.id + '">' +
+      '<span class="swatch" style="background:' + cssVar(p.var) + '"></span>' +
+      '<span>' + p.label + '</span>';
+    platformListEl.appendChild(row);
+  });
+
+  // ---------------------------------------------------------------------
+  // Keyword chips
+  // ---------------------------------------------------------------------
+  var kwInput = document.getElementById("kw-input");
+  var kwChips = document.getElementById("kw-chips");
+
+  function renderChips() {
+    kwChips.innerHTML = "";
+    if (state.keywords.length === 0) {
+      kwChips.innerHTML = '<span class="chip-empty-hint">No keywords yet — add at least one.</span>';
+    } else {
+      state.keywords.forEach(function (kw, i) {
+        var chip = document.createElement("span");
+        chip.className = "chip";
+        chip.innerHTML = '<span></span><button aria-label="remove">✕</button>';
+        chip.querySelector("span").textContent = kw;
+        chip.querySelector("button").addEventListener("click", function () {
+          state.keywords.splice(i, 1);
+          renderChips();
+          validateForm();
+        });
+        kwChips.appendChild(chip);
+      });
+    }
+    validateForm();
+  }
+
+  function addKeyword() {
+    var val = kwInput.value.trim();
+    if (!val) return;
+    if (state.keywords.indexOf(val) === -1) {
+      state.keywords.push(val);
+      renderChips();
+    }
+    kwInput.value = "";
+    kwInput.focus();
+  }
+
+  document.getElementById("kw-add").addEventListener("click", addKeyword);
+  kwInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); addKeyword(); }
+  });
+
+  // ---------------------------------------------------------------------
+  // Date/time controls + presets
+  // ---------------------------------------------------------------------
+  var startDateEl = document.getElementById("start-date");
+  var startTimeEl = document.getElementById("start-time");
+  var endDateEl = document.getElementById("end-date");
+  var endTimeEl = document.getElementById("end-time");
+
+  function fmtDateInput(d) {
+    return d.toISOString().slice(0, 10);
+  }
+  function setDefaultRange() {
+    var end = new Date();
+    var start = new Date();
+    start.setDate(start.getDate() - 7);
+    startDateEl.value = fmtDateInput(start);
+    endDateEl.value = fmtDateInput(end);
+    startTimeEl.value = "00:00";
+    endTimeEl.value = "23:59";
+  }
+  setDefaultRange();
+
+  document.querySelectorAll(".preset-btn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var end = new Date();
+      var start = new Date();
+      var preset = btn.getAttribute("data-preset");
+      if (preset === "24h") start.setDate(start.getDate() - 1);
+      if (preset === "7d") start.setDate(start.getDate() - 7);
+      if (preset === "30d") start.setDate(start.getDate() - 30);
+      startDateEl.value = fmtDateInput(start);
+      endDateEl.value = fmtDateInput(end);
+      startTimeEl.value = "00:00";
+      endTimeEl.value = "23:59";
+      validateForm();
+    });
+  });
+
+  // ---------------------------------------------------------------------
+  // Validation
+  // ---------------------------------------------------------------------
+  var runBtn = document.getElementById("run-btn");
+  var formError = document.getElementById("form-error");
+
+  function getSelectedPlatforms() {
+    return Array.prototype.slice.call(document.querySelectorAll('[data-platform]'))
+      .filter(function (cb) { return cb.checked; })
+      .map(function (cb) { return cb.getAttribute("data-platform"); });
+  }
+  function getRange() {
+    var start = new Date(startDateEl.value + "T" + (startTimeEl.value || "00:00") + ":00");
+    var end = new Date(endDateEl.value + "T" + (endTimeEl.value || "23:59") + ":00");
+    return { start: start, end: end };
+  }
+
+  function validateForm() {
+    var errors = [];
+    if (state.keywords.length === 0) errors.push("Add at least one keyword or hashtag.");
+    if (getSelectedPlatforms().length === 0) errors.push("Select at least one platform.");
+    var r = getRange();
+    if (isNaN(r.start.getTime()) || isNaN(r.end.getTime())) errors.push("Pick a valid start and end date.");
+    else if (r.end <= r.start) errors.push("End of range must be after the start.");
+
+    if (errors.length && (document.activeElement === runBtn || formError.dataset.shown === "1")) {
+      formError.textContent = errors[0];
+      formError.style.display = "block";
+      formError.dataset.shown = "1";
+    } else {
+      formError.style.display = "none";
+      formError.dataset.shown = "0";
+    }
+    runBtn.disabled = errors.length > 0;
+    return errors;
+  }
+  platformListEl.addEventListener("change", validateForm);
+  [startDateEl, startTimeEl, endDateEl, endTimeEl].forEach(function (el) {
+    el.addEventListener("change", validateForm);
+  });
+  validateForm();
+
+  document.getElementById("clear-btn").addEventListener("click", function () {
+    state.keywords = [];
+    renderChips();
+    document.querySelectorAll('[data-platform]').forEach(function (cb) { cb.checked = true; });
+    setDefaultRange();
+    document.getElementById("results").classList.remove("visible");
+    document.getElementById("empty-state").style.display = "block";
+    validateForm();
+  });
+
+  // ---------------------------------------------------------------------
+  // Seeded RNG
+  // ---------------------------------------------------------------------
+  function hashString(str) {
+    var h = 2166136261;
+    for (var i = 0; i < str.length; i++) {
+      h ^= str.charCodeAt(i);
+      h = (h * 16777619) >>> 0;
+    }
+    return h >>> 0;
+  }
+  function mulberry32(seed) {
+    var a = seed;
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      var t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  // ---------------------------------------------------------------------
+  // Data generation
+  // ---------------------------------------------------------------------
+  var TEMPLATES = {
+    positive: [
+      'Just came across {kw} and honestly it\'s better than I expected 🔥',
+      'Can we talk about how good {kw} is right now? No notes.',
+      '{kw} is living rent free in my head today.',
+      'Obsessed with {kw}. Everyone needs to see this.',
+      'The buzz around {kw} is not lying, it\'s actually great.',
+      'Big fan of what\'s happening with {kw} lately.'
+    ],
+    neutral: [
+      'Seeing a lot of posts about {kw} today, still forming an opinion.',
+      'Anyone have more info on {kw}? Trying to understand what\'s going on.',
+      '{kw} is trending, here\'s a quick recap of what happened.',
+      'New update on {kw} just dropped, thoughts?',
+      'Watching how {kw} plays out over the next few days.',
+      'Interesting thread going around about {kw}.'
+    ],
+    negative: [
+      'Not gonna lie, {kw} really let me down this time.',
+      'Why is everyone hyping {kw}? I don\'t get it.',
+      '{kw} is falling apart and nobody\'s talking about it.',
+      'Deeply unimpressed by {kw}. Expected way more.',
+      '{kw} needs to fix this ASAP, this is getting bad.',
+      'Starting to lose patience with {kw} honestly.'
+    ]
+  };
+  var HANDLE_PARTS = ["nova", "kai", "reef", "orbit", "pixel", "sage", "vale", "atlas", "echo", "juno", "flux", "moss", "haze", "quill", "onyx"];
+
+  function seededHandle(rng, platform) {
+    var a = HANDLE_PARTS[Math.floor(rng() * HANDLE_PARTS.length)];
+    var n = Math.floor(rng() * 900 + 10);
+    if (platform === "facebook") return a.charAt(0).toUpperCase() + a.slice(1) + " " + (Math.floor(rng()*90)+10);
+    return "@" + a + n;
+  }
+
+  function buildBuckets(start, end) {
+    var totalHours = (end - start) / 3600000;
+    var unit, count;
+    if (totalHours <= 48) { unit = "hour"; count = Math.max(4, Math.round(totalHours)); }
+    else if (totalHours <= 24 * 75) { unit = "day"; count = Math.max(4, Math.round(totalHours / 24)); }
+    else { unit = "week"; count = Math.max(4, Math.round(totalHours / (24 * 7))); }
+    count = Math.min(count, 56);
+    var stepMs = (end - start) / count;
+    var buckets = [];
+    for (var i = 0; i < count; i++) {
+      var bStart = new Date(start.getTime() + i * stepMs);
+      buckets.push({ start: bStart, unit: unit });
+    }
+    return buckets;
+  }
+
+  function fmtBucketLabel(b) {
+    var d = b.start;
+    if (b.unit === "hour") {
+      return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    }
+    return d.toLocaleDateString([], { month: "short", day: "numeric" });
+  }
+
+  function generateDataset(keywords, platformIds, range) {
+    var seedStr = keywords.join("|").toLowerCase() + "::" + platformIds.join(",") + "::" + range.start.toISOString() + "::" + range.end.toISOString();
+    var rng = mulberry32(hashString(seedStr));
+
+    var buckets = buildBuckets(range.start, range.end);
+    var popularity = 0.6 + rng() * 2.0; // topic magnitude factor
+    var kwFactor = 1 + 0.15 * (keywords.length - 1);
+
+    var platforms = PLATFORMS.filter(function (p) { return platformIds.indexOf(p.id) !== -1; });
+
+    var series = {}; // platformId -> array of counts aligned to buckets
+    var platformTotals = {};
+
+    platforms.forEach(function (p) {
+      var base = p.weight * popularity * kwFactor;
+      var walk = 1;
+      var peakIndex = Math.floor(rng() * buckets.length);
+      var sigma = Math.max(1.2, buckets.length / 7);
+      var counts = [];
+      var total = 0;
+      for (var i = 0; i < buckets.length; i++) {
+        walk *= 0.85 + rng() * 0.3;
+        walk = Math.min(2.4, Math.max(0.35, walk));
+        var spike = 1.8 * Math.exp(-Math.pow(i - peakIndex, 2) / (2 * sigma * sigma));
+        var raw = base * (0.6 + rng() * 0.8) * walk * (1 + spike);
+        var val = Math.max(0, Math.round(raw * 6));
+        counts.push(val);
+        total += val;
+      }
+      series[p.id] = counts;
+      platformTotals[p.id] = total;
+    });
+
+    var totalMentions = 0;
+    Object.keys(platformTotals).forEach(function (k) { totalMentions += platformTotals[k]; });
+
+    // sentiment split
+    var posShare = 0.15 + rng() * 0.35;
+    var negShare = 0.10 + rng() * 0.30;
+    var neutShare = Math.max(0.1, 1 - posShare - negShare);
+    var sum = posShare + negShare + neutShare;
+    posShare /= sum; negShare /= sum; neutShare /= sum;
+
+    // temperature score (log-normalized against a "typical" scale for this window)
+    var typicalScale = buckets.length * platforms.length * 26;
+    var score = Math.round(100 * Math.log(1 + totalMentions / 40) / Math.log(1 + typicalScale / 40));
+    score = Math.max(3, Math.min(98, score));
+
+    // sample mention feed
+    var feedCount = Math.min(60, Math.max(16, Math.round(totalMentions * 0.015)));
+    var feed = [];
+    var platformKeys = platforms.map(function (p) { return p.id; });
+    var weightSum = 0;
+    var weights = platformKeys.map(function (id) { weightSum += platformTotals[id]; return platformTotals[id]; });
+
+    function pickWeighted(list, weightList, wSum) {
+      var r = rng() * wSum;
+      var acc = 0;
+      for (var i = 0; i < list.length; i++) {
+        acc += weightList[i];
+        if (r <= acc) return list[i];
+      }
+      return list[list.length - 1];
+    }
+
+    for (var f = 0; f < feedCount; f++) {
+      var pid = weightSum > 0 ? pickWeighted(platformKeys, weights, weightSum) : platformKeys[0];
+      var pinfo = PLATFORMS.filter(function (p) { return p.id === pid; })[0];
+      var sRoll = rng();
+      var sentiment = sRoll < posShare ? "positive" : (sRoll < posShare + negShare ? "negative" : "neutral");
+      var tmpl = TEMPLATES[sentiment][Math.floor(rng() * TEMPLATES[sentiment].length)];
+      var kw = keywords[Math.floor(rng() * keywords.length)];
+      var text = tmpl.replace(/\{kw\}/g, kw);
+      var ts = new Date(range.start.getTime() + rng() * (range.end - range.start));
+      var eng1 = Math.round(rng() * (pid === "youtube" ? 4000 : 900));
+      var eng2 = Math.round(rng() * (pid === "youtube" ? 260 : 140));
+      feed.push({
+        platform: pid,
+        platformLabel: pinfo.label,
+        handle: seededHandle(rng, pid),
+        text: text,
+        sentiment: sentiment,
+        ts: ts,
+        eng: [
+          { label: pinfo.eng[0], value: eng1 },
+          { label: pinfo.eng[1], value: eng2 }
+        ]
+      });
+    }
+    feed.sort(function (a, b) { return b.ts - a.ts; });
+
+    return {
+      keywords: keywords, platforms: platforms, range: range, buckets: buckets,
+      series: series, platformTotals: platformTotals, totalMentions: totalMentions,
+      sentiment: { positive: posShare, negative: negShare, neutral: neutShare },
+      score: score, feed: feed
+    };
+  }
+
+  // ---------------------------------------------------------------------
+  // Rendering: stat tiles
+  // ---------------------------------------------------------------------
+  function renderStats(ds) {
+    var days = Math.max(1, Math.round((ds.range.end - ds.range.start) / 86400000));
+    var topPlatform = ds.platforms.slice().sort(function (a, b) {
+      return ds.platformTotals[b.id] - ds.platformTotals[a.id];
+    })[0];
+    var tiles = [
+      { label: "Sample mentions", value: ds.totalMentions.toLocaleString(), sub: "matching your keywords" },
+      { label: "Window", value: days + (days === 1 ? " day" : " days"), sub: fmtRangeSub(ds.range) },
+      { label: "Platforms scanned", value: String(ds.platforms.length), sub: ds.platforms.map(function(p){return p.label;}).join(", ") },
+      { label: "Loudest platform", value: topPlatform ? topPlatform.label : "—", sub: topPlatform ? ds.platformTotals[topPlatform.id].toLocaleString() + " mentions" : "" }
+    ];
+    var row = document.getElementById("stat-row");
+    row.innerHTML = "";
+    tiles.forEach(function (t) {
+      var el = document.createElement("div");
+      el.className = "stat-tile";
+      el.innerHTML = '<div class="label"></div><div class="value"></div><div class="sub"></div>';
+      el.querySelector(".label").textContent = t.label;
+      el.querySelector(".value").textContent = t.value;
+      el.querySelector(".sub").textContent = t.sub;
+      row.appendChild(el);
+    });
+  }
+  function fmtRangeSub(range) {
+    var opts = { month: "short", day: "numeric" };
+    return range.start.toLocaleDateString([], opts) + " – " + range.end.toLocaleDateString([], opts);
+  }
+
+  // ---------------------------------------------------------------------
+  // Rendering: gauge
+  // ---------------------------------------------------------------------
+  function polar(cx, cy, r, valuePct) {
+    var theta = (180 - 1.8 * valuePct) * Math.PI / 180;
+    return { x: cx + r * Math.cos(theta), y: cy - r * Math.sin(theta) };
+  }
+  function arcPath(cx, cy, r, v0, v1) {
+    var p0 = polar(cx, cy, r, v0);
+    var p1 = polar(cx, cy, r, v1);
+    return "M " + p0.x.toFixed(2) + " " + p0.y.toFixed(2) + " A " + r + " " + r + " 0 0 1 " + p1.x.toFixed(2) + " " + p1.y.toFixed(2);
+  }
+
+  function renderGauge(ds) {
+    var svg = document.getElementById("gauge-svg");
+    var cx = 100, cy = 110, r = 82, band = 16;
+    var zones = [
+      { from: 0, to: 33, color: "var(--muted)" },
+      { from: 33, to: 67, color: "var(--status-warning)" },
+      { from: 67, to: 100, color: "var(--status-critical)" }
+    ];
+    var parts = zones.map(function (z) {
+      return '<path d="' + arcPath(cx, cy, r, z.from, z.to) + '" stroke="' + z.color + '" stroke-width="' + band + '" fill="none" stroke-linecap="butt"/>';
+    });
+    var needleP = polar(cx, cy, r - band - 6, ds.score);
+    parts.push('<line x1="' + cx + '" y1="' + cy + '" x2="' + needleP.x.toFixed(2) + '" y2="' + needleP.y.toFixed(2) + '" stroke="var(--text-primary)" stroke-width="3" stroke-linecap="round"/>');
+    parts.push('<circle cx="' + cx + '" cy="' + cy + '" r="6" fill="var(--text-primary)"/>');
+    svg.innerHTML = parts.join("");
+
+    document.getElementById("gauge-score").textContent = ds.score;
+    var stateLabel, stateColor;
+    if (ds.score < 33) { stateLabel = "Quiet"; stateColor = cssVar("--muted"); }
+    else if (ds.score < 67) { stateLabel = "Warming up"; stateColor = cssVar("--status-warning"); }
+    else { stateLabel = "Hot"; stateColor = cssVar("--status-critical"); }
+    var stateEl = document.getElementById("gauge-state");
+    stateEl.textContent = stateLabel;
+    stateEl.style.color = stateColor;
+  }
+
+  // ---------------------------------------------------------------------
+  // Rendering: sentiment bar
+  // ---------------------------------------------------------------------
+  function renderSentiment(ds) {
+    var bar = document.getElementById("sent-bar");
+    var s = ds.sentiment;
+    bar.innerHTML =
+      '<div style="width:' + (s.positive * 100).toFixed(1) + '%; background:' + cssVar("--status-good") + '"></div>' +
+      '<div style="width:' + (s.neutral * 100).toFixed(1) + '%; background:' + cssVar("--muted") + '"></div>' +
+      '<div style="width:' + (s.negative * 100).toFixed(1) + '%; background:' + cssVar("--status-critical") + '"></div>';
+
+    var legend = document.getElementById("sent-legend");
+    legend.innerHTML = "";
+    [
+      { label: "Positive", pct: s.positive, color: "var(--status-good)" },
+      { label: "Neutral", pct: s.neutral, color: "var(--muted)" },
+      { label: "Negative", pct: s.negative, color: "var(--status-critical)" }
+    ].forEach(function (item) {
+      var el = document.createElement("span");
+      el.className = "item";
+      el.innerHTML = '<span class="dot" style="background:' + item.color + '"></span>' + item.label + '<span class="pct"></span>';
+      el.querySelector(".pct").textContent = Math.round(item.pct * 100) + "%";
+      legend.appendChild(el);
+    });
+  }
+
+  // ---------------------------------------------------------------------
+  // Rendering: trend chart (multi-line, SVG)
+  // ---------------------------------------------------------------------
+  function renderTrendLegend(ds) {
+    var wrap = document.getElementById("trend-legend");
+    wrap.innerHTML = "";
+    ds.platforms.forEach(function (p) {
+      var btn = document.createElement("button");
+      btn.className = state.trendVisible[p.id] ? "" : "off";
+      btn.innerHTML = '<span class="swatch" style="background:' + cssVar(p.var) + '"></span>' + p.label;
+      btn.addEventListener("click", function () {
+        state.trendVisible[p.id] = !state.trendVisible[p.id];
+        renderTrendLegend(ds);
+        renderTrendChart(ds);
+      });
+      wrap.appendChild(btn);
+    });
+  }
+
+  function renderTrendChart(ds) {
+    var svg = document.getElementById("trend-svg");
+    var W = 800, H = 300, padL = 40, padR = 14, padT = 14, padB = 30;
+    var plotW = W - padL - padR, plotH = H - padT - padB;
+
+    var visiblePlatforms = ds.platforms.filter(function (p) { return state.trendVisible[p.id]; });
+    var maxVal = 1;
+    visiblePlatforms.forEach(function (p) {
+      ds.series[p.id].forEach(function (v) { if (v > maxVal) maxVal = v; });
+    });
+    maxVal = Math.ceil(maxVal * 1.15);
+
+    var n = ds.buckets.length;
+    function xAt(i) { return padL + (n <= 1 ? 0 : (i / (n - 1)) * plotW); }
+    function yAt(v) { return padT + plotH - (v / maxVal) * plotH; }
+
+    var parts = [];
+
+    // gridlines (4 horizontal)
+    var gridSteps = 4;
+    for (var g = 0; g <= gridSteps; g++) {
+      var gv = (maxVal / gridSteps) * g;
+      var gy = yAt(gv);
+      parts.push('<line class="gridline" x1="' + padL + '" x2="' + (W - padR) + '" y1="' + gy.toFixed(1) + '" y2="' + gy.toFixed(1) + '"/>');
+      parts.push('<text class="axis-label" x="' + (padL - 6) + '" y="' + (gy + 3).toFixed(1) + '" text-anchor="end">' + Math.round(gv) + '</text>');
+    }
+    // baseline
+    parts.push('<line class="baseline" x1="' + padL + '" x2="' + (W - padR) + '" y1="' + (padT + plotH) + '" y2="' + (padT + plotH) + '"/>');
+
+    // x labels (subset)
+    var labelEvery = Math.max(1, Math.ceil(n / 8));
+    for (var i = 0; i < n; i += labelEvery) {
+      parts.push('<text class="axis-label" x="' + xAt(i).toFixed(1) + '" y="' + (H - 8) + '" text-anchor="middle">' + fmtBucketLabel(ds.buckets[i]) + '</text>');
+    }
+
+    // lines
+    visiblePlatforms.forEach(function (p) {
+      var pts = ds.series[p.id].map(function (v, i) { return xAt(i).toFixed(1) + "," + yAt(v).toFixed(1); }).join(" ");
+      parts.push('<polyline points="' + pts + '" fill="none" stroke="' + cssVar(p.var) + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>');
+    });
+
+    // invisible hover targets (vertical bands)
+    var bandW = n > 1 ? plotW / (n - 1) : plotW;
+    for (var hi = 0; hi < n; hi++) {
+      var hx = xAt(hi);
+      parts.push('<rect class="hover-band" data-idx="' + hi + '" x="' + (hx - bandW / 2).toFixed(1) + '" y="' + padT + '" width="' + bandW.toFixed(1) + '" height="' + plotH + '" fill="transparent"/>');
+    }
+
+    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+    svg.innerHTML = parts.join("");
+
+    // hover interaction
+    var tooltip = document.getElementById("trend-tooltip");
+    var container = svg.parentElement;
+    svg.querySelectorAll(".hover-band").forEach(function (band) {
+      band.addEventListener("mousemove", function (e) {
+        var idx = parseInt(band.getAttribute("data-idx"), 10);
+        var b = ds.buckets[idx];
+        var rows = visiblePlatforms.map(function (p) {
+          return '<div class="t-row"><span class="n"><span class="dot" style="background:' + cssVar(p.var) + '"></span>' + p.label + '</span><span>' + ds.series[p.id][idx] + '</span></div>';
+        }).join("");
+        tooltip.innerHTML = '<div class="t-date">' + fmtBucketLabel(b) + '</div>' + rows;
+        tooltip.style.display = "block";
+        var crect = container.getBoundingClientRect();
+        var left = e.clientX - crect.left + 12;
+        var top = e.clientY - crect.top + 12;
+        if (left + 150 > crect.width) left = e.clientX - crect.left - 150;
+        tooltip.style.left = left + "px";
+        tooltip.style.top = top + "px";
+      });
+      band.addEventListener("mouseleave", function () { tooltip.style.display = "none"; });
+    });
+  }
+
+  function renderTrendTable(ds) {
+    var wrap = document.getElementById("trend-table-wrap");
+    var visiblePlatforms = ds.platforms;
+    var thead = "<tr><th>Time</th>" + visiblePlatforms.map(function (p) { return "<th>" + p.label + "</th>"; }).join("") + "</tr>";
+    var rows = ds.buckets.map(function (b, i) {
+      return "<tr><td>" + fmtBucketLabel(b) + "</td>" + visiblePlatforms.map(function (p) { return "<td>" + ds.series[p.id][i] + "</td>"; }).join("") + "</tr>";
+    }).join("");
+    wrap.innerHTML = '<table class="data-table"><thead>' + thead + '</thead><tbody>' + rows + '</tbody></table>';
+  }
+
+  document.getElementById("trend-table-toggle").addEventListener("click", function () {
+    var svg = document.getElementById("trend-svg");
+    var wrap = document.getElementById("trend-table-wrap");
+    var showingTable = wrap.style.display !== "none";
+    if (showingTable) {
+      wrap.style.display = "none";
+      svg.style.display = "block";
+      this.textContent = "View as table";
+    } else {
+      renderTrendTable(state.dataset);
+      wrap.style.display = "block";
+      svg.style.display = "none";
+      this.textContent = "View as chart";
+    }
+  });
+
+  // ---------------------------------------------------------------------
+  // Rendering: per-platform bars
+  // ---------------------------------------------------------------------
+  function renderPlatformBars(ds) {
+    var wrap = document.getElementById("platform-bars");
+    wrap.innerHTML = "";
+    var sorted = ds.platforms.slice().sort(function (a, b) { return ds.platformTotals[b.id] - ds.platformTotals[a.id]; });
+    var max = Math.max.apply(null, sorted.map(function (p) { return ds.platformTotals[p.id]; })) || 1;
+    sorted.forEach(function (p) {
+      var val = ds.platformTotals[p.id];
+      var row = document.createElement("div");
+      row.className = "pbar-row";
+      row.innerHTML =
+        '<div class="pbar-label"><span class="swatch" style="background:' + cssVar(p.var) + '"></span>' + p.label + '</div>' +
+        '<div class="pbar-track"><div class="pbar-fill" style="width:' + ((val / max) * 100).toFixed(1) + '%; background:' + cssVar(p.var) + '"></div></div>' +
+        '<div class="pbar-value">' + val.toLocaleString() + '</div>';
+      wrap.appendChild(row);
+    });
+
+    var top = sorted[0];
+    var totalAll = ds.totalMentions || 1;
+    var block = document.getElementById("top-platform-block");
+    if (top) {
+      var share = Math.round((ds.platformTotals[top.id] / totalAll) * 100);
+      block.innerHTML =
+        '<strong style="color:var(--text-primary); font-size:15px;">' + top.label + '</strong> is carrying the most volume for this topic in your window — about <strong>' + share + '%</strong> of all sample mentions across the platforms you selected.<br><br>' +
+        'Sentiment there skews ' + describeSentimentLean(ds) + ', with the busiest activity concentrated around the trend chart\'s peak above.';
+    } else {
+      block.innerHTML = "No platform data.";
+    }
+  }
+  function describeSentimentLean(ds) {
+    var s = ds.sentiment;
+    if (s.positive > s.negative && s.positive > s.neutral) return "positive";
+    if (s.negative > s.positive && s.negative > s.neutral) return "negative";
+    return "mostly neutral";
+  }
+
+  // ---------------------------------------------------------------------
+  // Rendering: mention feed
+  // ---------------------------------------------------------------------
+  function renderFeedFilters(ds) {
+    var wrap = document.getElementById("feed-filters");
+    wrap.innerHTML = "";
+    var groups = [
+      { key: "platform", options: [{ id: "all", label: "All platforms" }].concat(ds.platforms.map(function (p) { return { id: p.id, label: p.label }; })) },
+      { key: "sentiment", options: [{ id: "all", label: "All sentiment" }, { id: "positive", label: "Positive" }, { id: "neutral", label: "Neutral" }, { id: "negative", label: "Negative" }] }
+    ];
+    groups.forEach(function (grp) {
+      grp.options.forEach(function (opt) {
+        var btn = document.createElement("button");
+        btn.className = "filter-chip" + (state.feedFilter[grp.key] === opt.id ? " active" : "");
+        btn.textContent = opt.label;
+        btn.addEventListener("click", function () {
+          state.feedFilter[grp.key] = opt.id;
+          renderFeedFilters(ds);
+          renderFeedList(ds);
+        });
+        wrap.appendChild(btn);
+      });
+    });
+  }
+
+  function renderFeedList(ds) {
+    var list = document.getElementById("feed-list");
+    list.innerHTML = "";
+    var items = ds.feed.filter(function (item) {
+      if (state.feedFilter.platform !== "all" && item.platform !== state.feedFilter.platform) return false;
+      if (state.feedFilter.sentiment !== "all" && item.sentiment !== state.feedFilter.sentiment) return false;
+      return true;
+    });
+    if (items.length === 0) {
+      list.innerHTML = '<div style="font-size:13px; color:var(--muted); padding:20px; text-align:center;">No sample mentions match this filter.</div>';
+      return;
+    }
+    items.forEach(function (item) {
+      var pinfo = PLATFORMS.filter(function (p) { return p.id === item.platform; })[0];
+      var el = document.createElement("div");
+      el.className = "feed-item";
+      el.innerHTML =
+        '<div class="fi-head">' +
+          '<div class="fi-plat"><span class="swatch" style="background:' + cssVar(pinfo.var) + '"></span>' + pinfo.label + ' <span class="fi-handle">' + item.handle + '</span></div>' +
+          '<div class="fi-time"></div>' +
+        '</div>' +
+        '<div class="fi-text"></div>' +
+        '<div class="fi-foot">' +
+          '<div class="fi-eng"></div>' +
+          '<span class="sent-badge ' + item.sentiment + '">' + item.sentiment + '</span>' +
+        '</div>';
+      el.querySelector(".fi-time").textContent = item.ts.toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+      el.querySelector(".fi-text").textContent = item.text;
+      el.querySelector(".fi-eng").innerHTML = item.eng.map(function (e) { return '<span>' + e.value.toLocaleString() + ' ' + e.label + '</span>'; }).join("");
+      list.appendChild(el);
+    });
+  }
+
+  document.getElementById("export-btn").addEventListener("click", function () {
+    var ds = state.dataset;
+    if (!ds) return;
+    var rows = [["timestamp", "platform", "handle", "sentiment", "text", ds.platforms[0] ? ds.platforms[0].eng[0] : "metric1", "metric2"]];
+    ds.feed.forEach(function (item) {
+      rows.push([item.ts.toISOString(), item.platformLabel, item.handle, item.sentiment, item.text.replace(/"/g, '""'), item.eng[0].value, item.eng[1].value]);
+    });
+    var csv = rows.map(function (r) { return r.map(function (c) { return '"' + String(c).replace(/"/g, '""') + '"'; }).join(","); }).join("\n");
+    var blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "pulso-sample-mentions.csv";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  });
+
+  // ---------------------------------------------------------------------
+  // Run scan
+  // ---------------------------------------------------------------------
+  runBtn.addEventListener("click", function () {
+    var errors = validateForm();
+    if (errors.length) {
+      formError.textContent = errors[0];
+      formError.style.display = "block";
+      return;
+    }
+    var platformIds = getSelectedPlatforms();
+    var range = getRange();
+    var ds = generateDataset(state.keywords.slice(), platformIds, range);
+    state.dataset = ds;
+    // reset per-run UI state
+    PLATFORMS.forEach(function (p) { state.trendVisible[p.id] = true; });
+    state.feedFilter = { platform: "all", sentiment: "all" };
+
+    renderStats(ds);
+    renderGauge(ds);
+    renderSentiment(ds);
+    renderTrendLegend(ds);
+    renderTrendChart(ds);
+    document.getElementById("trend-table-wrap").style.display = "none";
+    document.getElementById("trend-svg").style.display = "block";
+    document.getElementById("trend-table-toggle").textContent = "View as table";
+    renderPlatformBars(ds);
+    renderFeedFilters(ds);
+    renderFeedList(ds);
+
+    document.getElementById("empty-state").style.display = "none";
+    document.getElementById("results").classList.add("visible");
+  });
+
+  renderChips();
+})();
+</script>
+</body>
+</html>
