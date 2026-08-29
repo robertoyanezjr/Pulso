@@ -95,6 +95,23 @@
   .stat-tile .st-value { font-family: 'Anton', sans-serif; font-weight: 400; font-size: 22px; color: var(--ink); margin-top: 3px; line-height: 1; }
   .stat-tile .st-sub { font-size: 12px; color: var(--ink-dim); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
+  /* platform coverage: ring + status badges, built only from real
+     verified/unavailable data — never a fabricated score */
+  .coverage-wrap { display: flex; gap: 24px; align-items: center; margin-bottom: 26px; flex-wrap: wrap; }
+  .coverage-ring { position: relative; width: 128px; height: 128px; flex-shrink: 0; }
+  .coverage-center { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .cov-num { font-family: 'Anton', sans-serif; font-weight: 400; font-size: 26px; color: var(--ink); line-height: 1; }
+  .cov-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint); margin-top: 3px; }
+  .coverage-badges { flex: 1; min-width: 240px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .cov-badge { border: 1px solid var(--hair-strong); background: var(--surface-2); border-radius: 9px; padding: 10px 12px; }
+  .cb-head { display: flex; align-items: center; gap: 6px; }
+  .cb-head .swatch-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+  .cb-name { font-size: 13px; font-weight: 700; flex: 1; }
+  .cb-pill { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.03em; padding: 2px 7px; border-radius: 999px; white-space: nowrap; }
+  .cb-pill.verified { background: rgba(15,122,77,0.14); color: var(--mint); }
+  .cb-pill.unavailable { background: rgba(23,22,27,0.08); color: var(--ink-faint); }
+  .cb-note { font-size: 12px; color: var(--ink-dim); margin-top: 5px; line-height: 1.45; }
+
   /* report render (shared with history) */
   .report-shell { border: 1px solid var(--hair-strong); border-radius: 14px; padding: 26px 28px; background: var(--surface); box-shadow: 0 1px 2px rgba(23,22,27,0.04); }
   .report-title { font-family: 'Anton', sans-serif; font-weight: 400; font-size: 26px; text-transform: uppercase; margin: 0 0 8px; text-wrap: balance; }
@@ -180,6 +197,11 @@
     .fact-text { font-size: 14px; }
     .src-grid { grid-template-columns: minmax(0, 1fr); }
 
+    .coverage-wrap { flex-direction: column; align-items: center; gap: 14px; margin-bottom: 22px; }
+    .coverage-ring { width: 108px; height: 108px; }
+    .cov-num { font-size: 22px; }
+    .coverage-badges { grid-template-columns: minmax(0, 1fr); min-width: 0; width: 100%; }
+
     .hist-card { flex: 0 0 180px; padding: 11px 12px; }
   }
 </style>
@@ -187,7 +209,7 @@
 <body>
 <div id="app"><div class="wrap"><p style="padding:60px 0; color:var(--ink-dim);">Loading…</p></div></div>
 
-<script id="state-data" type="application/json">{"version":1,"request":{"keywords":[],"platforms":["youtube","facebook","instagram","tiktok","x"],"startDate":"","endDate":"","notes":"","status":"draft","requestedAt":null},"history":[{"id":"seed-pjfest","requestedAt":"2026-08-29T15:00:00.000Z","completedAt":"2026-08-29T15:12:00.000Z","requestSnapshot":{"keywords":["PJ Fest Miami","PJ Fest Coca-Cola","PJ Fest Jay Wheeler"],"platforms":["youtube","facebook","instagram","tiktok","x"],"startDate":"2026-08-23","endDate":"2026-08-29","notes":"First real run — established the report format."},"report":{"title":"PJ Fest Miami Watch","pulledOn":"August 29, 2026","dek":"A real, source-linked read on PJ Fest’s Miami leg — the Bresh Party opener and the upcoming Jay Wheeler concert — plus Coca-Cola’s sponsorship, built from live web search rather than platform APIs or fabricated metrics.","scopeLine":"PJ Fest Miami · PJ Fest Coca-Cola · PJ Fest Jay Wheeler — Sun Aug 23–Sat Aug 29, 2026 — IG · YouTube · TikTok · X · Facebook","facts":[{"text":"PJ Fest is Premios Juventud’s first expansion beyond a single gala into a six-day cultural platform across Miami, Houston, Los Angeles and Marbella, culminating in the September 3 awards show.","sources":[{"label":"TelevisaUnivision, Jul 28","url":"https://corporate.televisaunivision.com/press/2026/07/28/premios-juventud-unveils-the-most-ambitious-evolution-with-pj-fest-and-announces-the-nominees-for-its-first-edition-in-europe/"},{"label":"Billboard","url":"https://www.billboard.com/pro/premios-juventud-2026-pj-fest-spain-televisaunivision/"}]},{"text":"Miami’s opening event, Bresh Party, ran August 29 — a long-running Latin-culture party brand.","sources":[{"label":"Univision","url":"https://www.univision.com/shows/premios-juventud/premios-juventud-2026-toda-la-informacion-sobre-pj-fest-que-durara-una-semana-cuando-inicia-en-que-consiste-y-mas"}]},{"text":"Miami’s second event is a private Jay Wheeler concert on August 31, streaming on ViX, YouTube and Facebook — still upcoming as of this brief.","sources":[{"label":"Univision","url":"https://www.univision.com/shows/premios-juventud/premios-juventud-2026-toda-la-informacion-sobre-pj-fest-que-durara-una-semana-cuando-inicia-en-que-consiste-y-mas"},{"label":"TelevisaUnivision, Jul 6","url":"https://corporate.televisaunivision.com/press/2026/07/06/premios-juventud-will-make-history-on-september-3-with-its-first-ever-edition-in-europe-during-the-inaugural-pj-fest/"}]},{"text":"Coca-Cola is named among confirmed sponsors of the 23rd edition of Premios Juventud, alongside Air Europa, Bulova LATAM, JCDecaux, METT Hotel, NYX, Planet Fitness and Universal Pictures.","sources":[{"label":"TelevisaUnivision, Aug 28","url":"https://corporate.televisaunivision.com/press/2026/08/28/where-to-watch-23rd-annual-premios-juventud-a-historic-night-from-starlite-marbella-on-september-3/"}]},{"text":"Jay Wheeler enters the week already active in the news cycle: the Aug 16 “Unidos por los Nuestros” Miami telethon, a global UTA signing, and three Premio Lo Nuestro 2026 nominations.","sources":[{"label":"Variety","url":"https://variety.com/2026/music/news/jay-wheeler-signs-with-uta-1236758958/"},{"label":"LaMezcla","url":"https://lamezcla.com/jay-wheeler-to-perform-in-arcangel-tribute-at-premio-lo-nuestro-2026/"}]}],"entitiesLabel":"Sponsors Named","entities":["Coca-Cola","Air Europa","Bulova LATAM","JCDecaux","METT Hotel","NYX Professional Makeup","Planet Fitness","Universal Pictures"],"momentum":[{"date":"AUG 24","body":"Spanish outlets cover Starlite Marbella’s selection as first European host venue."},{"date":"AUG 27","body":"TelevisaUnivision announces a fourth round of confirmed performers."},{"date":"AUG 28","body":"“Where to Watch” release consolidates the full broadcast footprint and sponsor list."},{"date":"AUG 29","body":"PJ Fest opens on the ground in Miami with the Bresh Party."}],"confidence":{"unavailable":["Instagram / TikTok / Facebook — no public comment or reaction data surfaced; these platforms don’t expose that to search.","X (Twitter) — the #PJFest hashtag page exists but isn’t readable without being logged in.","YouTube — no PJ Fest or Jay Wheeler Miami video surfaced yet; the Aug 31 concert hasn’t aired."],"notes":"The Jay Wheeler Miami show was still two days out as of this brief, so no genuine post-show reaction could exist yet on any platform. The Coca-Cola sponsorship fact rests on search-indexed text — the publisher domain was unreachable to fetch directly."},"nextStep":"Re-run this brief on or after September 1, once the Jay Wheeler stream and the rest of the Miami leg have actually happened.","sources":[{"label":"TelevisaUnivision — PJ Fest unveiled","url":"https://corporate.televisaunivision.com/press/2026/07/28/premios-juventud-unveils-the-most-ambitious-evolution-with-pj-fest-and-announces-the-nominees-for-its-first-edition-in-europe/"},{"label":"Univision — PJ Fest full week guide","url":"https://www.univision.com/shows/premios-juventud/premios-juventud-2026-toda-la-informacion-sobre-pj-fest-que-durara-una-semana-cuando-inicia-en-que-consiste-y-mas"},{"label":"Billboard Pro — PJ Fest evolution","url":"https://www.billboard.com/pro/premios-juventud-2026-pj-fest-spain-televisaunivision/"},{"label":"Variety — Jay Wheeler signs with UTA","url":"https://variety.com/2026/music/news/jay-wheeler-signs-with-uta-1236758958/"}],"methodology":"Live web search performed August 29, 2026. Two publisher domains could not be fetched directly from this environment, so those facts rest on indexed search excerpts rather than a direct page read. No data from Instagram, TikTok, X or Facebook’s internal systems was accessed."}}]}</script>
+<script id="state-data" type="application/json">{"version":1,"request":{"keywords":[],"platforms":["youtube","facebook","instagram","tiktok","x"],"startDate":"","endDate":"","notes":"","status":"draft","requestedAt":null},"history":[{"id":"seed-pjfest","requestedAt":"2026-08-29T15:00:00.000Z","completedAt":"2026-08-29T15:12:00.000Z","requestSnapshot":{"keywords":["PJ Fest Miami","PJ Fest Coca-Cola","PJ Fest Jay Wheeler"],"platforms":["youtube","facebook","instagram","tiktok","x"],"startDate":"2026-08-23","endDate":"2026-08-29","notes":"First real run — established the report format."},"report":{"title":"PJ Fest Miami Watch","pulledOn":"August 29, 2026","dek":"A real, source-linked read on PJ Fest’s Miami leg — the Bresh Party opener and the upcoming Jay Wheeler concert — plus Coca-Cola’s sponsorship, built from live web search rather than platform APIs or fabricated metrics.","scopeLine":"PJ Fest Miami · PJ Fest Coca-Cola · PJ Fest Jay Wheeler — Sun Aug 23–Sat Aug 29, 2026 — IG · YouTube · TikTok · X · Facebook","facts":[{"text":"PJ Fest is Premios Juventud’s first expansion beyond a single gala into a six-day cultural platform across Miami, Houston, Los Angeles and Marbella, culminating in the September 3 awards show.","sources":[{"label":"TelevisaUnivision, Jul 28","url":"https://corporate.televisaunivision.com/press/2026/07/28/premios-juventud-unveils-the-most-ambitious-evolution-with-pj-fest-and-announces-the-nominees-for-its-first-edition-in-europe/"},{"label":"Billboard","url":"https://www.billboard.com/pro/premios-juventud-2026-pj-fest-spain-televisaunivision/"}]},{"text":"Miami’s opening event, Bresh Party, ran August 29 — a long-running Latin-culture party brand.","sources":[{"label":"Univision","url":"https://www.univision.com/shows/premios-juventud/premios-juventud-2026-toda-la-informacion-sobre-pj-fest-que-durara-una-semana-cuando-inicia-en-que-consiste-y-mas"}]},{"text":"Miami’s second event is a private Jay Wheeler concert on August 31, streaming on ViX, YouTube and Facebook — still upcoming as of this brief.","sources":[{"label":"Univision","url":"https://www.univision.com/shows/premios-juventud/premios-juventud-2026-toda-la-informacion-sobre-pj-fest-que-durara-una-semana-cuando-inicia-en-que-consiste-y-mas"},{"label":"TelevisaUnivision, Jul 6","url":"https://corporate.televisaunivision.com/press/2026/07/06/premios-juventud-will-make-history-on-september-3-with-its-first-ever-edition-in-europe-during-the-inaugural-pj-fest/"}]},{"text":"Coca-Cola is named among confirmed sponsors of the 23rd edition of Premios Juventud, alongside Air Europa, Bulova LATAM, JCDecaux, METT Hotel, NYX, Planet Fitness and Universal Pictures.","sources":[{"label":"TelevisaUnivision, Aug 28","url":"https://corporate.televisaunivision.com/press/2026/08/28/where-to-watch-23rd-annual-premios-juventud-a-historic-night-from-starlite-marbella-on-september-3/"}]},{"text":"Jay Wheeler enters the week already active in the news cycle: the Aug 16 “Unidos por los Nuestros” Miami telethon, a global UTA signing, and three Premio Lo Nuestro 2026 nominations.","sources":[{"label":"Variety","url":"https://variety.com/2026/music/news/jay-wheeler-signs-with-uta-1236758958/"},{"label":"LaMezcla","url":"https://lamezcla.com/jay-wheeler-to-perform-in-arcangel-tribute-at-premio-lo-nuestro-2026/"}]}],"entitiesLabel":"Sponsors Named","entities":["Coca-Cola","Air Europa","Bulova LATAM","JCDecaux","METT Hotel","NYX Professional Makeup","Planet Fitness","Universal Pictures"],"momentum":[{"date":"AUG 24","body":"Spanish outlets cover Starlite Marbella’s selection as first European host venue."},{"date":"AUG 27","body":"TelevisaUnivision announces a fourth round of confirmed performers."},{"date":"AUG 28","body":"“Where to Watch” release consolidates the full broadcast footprint and sponsor list."},{"date":"AUG 29","body":"PJ Fest opens on the ground in Miami with the Bresh Party."}],"platformCoverage":[{"id":"instagram","status":"unavailable","note":"No public comment or reaction data surfaced — not exposed to search engines."},{"id":"tiktok","status":"unavailable","note":"No public comment or reaction data surfaced — not exposed to search engines."},{"id":"facebook","status":"unavailable","note":"No public comment or reaction data surfaced — not exposed to search engines."},{"id":"x","status":"unavailable","note":"The #PJFest hashtag page exists but isn’t readable while logged out."},{"id":"youtube","status":"unavailable","note":"No PJ Fest or Jay Wheeler Miami video surfaced yet — the Aug 31 concert hasn’t aired."}],"confidence":{"notes":"Zero of five target platforms had verifiable public reaction data this window — direct platform sentiment isn’t something public search can see. Everything above was verified instead through real press coverage. The Jay Wheeler Miami show was also still two days out as of this brief, so no post-show reaction could exist yet anywhere. The Coca-Cola sponsorship fact rests on search-indexed text — the publisher domain was unreachable to fetch directly."},"nextStep":"Re-run this brief on or after September 1, once the Jay Wheeler stream and the rest of the Miami leg have actually happened.","sources":[{"label":"TelevisaUnivision — PJ Fest unveiled","url":"https://corporate.televisaunivision.com/press/2026/07/28/premios-juventud-unveils-the-most-ambitious-evolution-with-pj-fest-and-announces-the-nominees-for-its-first-edition-in-europe/"},{"label":"Univision — PJ Fest full week guide","url":"https://www.univision.com/shows/premios-juventud/premios-juventud-2026-toda-la-informacion-sobre-pj-fest-que-durara-una-semana-cuando-inicia-en-que-consiste-y-mas"},{"label":"Billboard Pro — PJ Fest evolution","url":"https://www.billboard.com/pro/premios-juventud-2026-pj-fest-spain-televisaunivision/"},{"label":"Variety — Jay Wheeler signs with UTA","url":"https://variety.com/2026/music/news/jay-wheeler-signs-with-uta-1236758958/"}],"methodology":"Live web search performed August 29, 2026. Two publisher domains could not be fetched directly from this environment, so those facts rest on indexed search excerpts rather than a direct page read. No data from Instagram, TikTok, X or Facebook’s internal systems was accessed."}}]}</script>
 
 <script id="app-logic">
 (function () {
@@ -244,6 +266,45 @@
     }).join("") + '</div>';
   }
 
+  function buildCoverageRing(verified, total) {
+    var r = 52, cx = 64, cy = 64, sw = 14;
+    var circumference = 2 * Math.PI * r;
+    var verifiedLen = total > 0 ? (verified / total) * circumference : 0;
+    var svg = '<svg viewBox="0 0 128 128" width="128" height="128">' +
+      '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="var(--hair-strong)" stroke-width="' + sw + '"></circle>';
+    if (verified > 0) {
+      svg += '<circle cx="' + cx + '" cy="' + cy + '" r="' + r + '" fill="none" stroke="var(--mint)" stroke-width="' + sw +
+        '" stroke-linecap="round" stroke-dasharray="' + verifiedLen.toFixed(1) + ' ' + (circumference - verifiedLen).toFixed(1) +
+        '" transform="rotate(-90 ' + cx + ' ' + cy + ')"></circle>';
+    }
+    svg += '</svg>';
+    return svg;
+  }
+
+  // Visual "did we actually get to verify this platform" readout — built
+  // only from report.platformCoverage, never from an invented score.
+  function renderPlatformCoverage(entry) {
+    var r = entry.report;
+    var cov = r.platformCoverage;
+    if (!cov || !cov.length) return "";
+    var verifiedCount = cov.filter(function (c) { return c.status === "verified"; }).length;
+    var total = cov.length;
+    var badges = cov.map(function (c) {
+      var p = getPlatform(c.id);
+      var isVerified = c.status === "verified";
+      return '<div class="cov-badge">' +
+        '<div class="cb-head"><span class="swatch-dot" style="background:' + p.color + '"></span>' +
+        '<span class="cb-name">' + escapeHtml(p.label) + '</span>' +
+        '<span class="cb-pill ' + (isVerified ? "verified" : "unavailable") + '">' + (isVerified ? "Verified" : "Not available") + '</span></div>' +
+        (c.note ? '<div class="cb-note">' + escapeHtml(c.note) + '</div>' : '') +
+        '</div>';
+    }).join("");
+    return '<div class="rep-sub">Platform Coverage</div><div class="coverage-wrap">' +
+      '<div class="coverage-ring">' + buildCoverageRing(verifiedCount, total) +
+      '<div class="coverage-center"><div class="cov-num">' + verifiedCount + '/' + total + '</div><div class="cov-label">verified</div></div></div>' +
+      '<div class="coverage-badges">' + badges + '</div></div>';
+  }
+
   function renderReport(entry) {
     if (!entry) return '<div class="report-shell"><div class="report-empty">No report yet — save a request above, then ask Claude to run it.</div></div>';
     var r = entry.report;
@@ -253,6 +314,8 @@
     html += '<div class="report-meta">PULLED ' + escapeHtml(r.pulledOn).toUpperCase() + '</div>';
     html += '<p class="report-dek">' + escapeHtml(r.dek) + '</p>';
     if (r.scopeLine) html += '<div class="report-meta" style="margin-bottom:22px;">' + escapeHtml(r.scopeLine) + '</div>';
+
+    html += renderPlatformCoverage(entry);
 
     if (r.facts && r.facts.length) {
       html += '<div class="rep-sub">Confirmed, Sourced Facts</div><div class="ledger">';
@@ -282,13 +345,8 @@
       html += '</div>';
     }
 
-    if (r.confidence) {
-      html += '<div class="rep-sub">Data Confidence</div><div class="confidence">';
-      if (r.confidence.unavailable && r.confidence.unavailable.length) {
-        html += '<ul>' + r.confidence.unavailable.map(function (u) { return '<li>' + escapeHtml(u) + '</li>'; }).join("") + '</ul>';
-      }
-      if (r.confidence.notes) html += '<p>' + escapeHtml(r.confidence.notes) + '</p>';
-      html += '</div>';
+    if (r.confidence && r.confidence.notes) {
+      html += '<div class="rep-sub">Data Confidence</div><div class="confidence"><p>' + escapeHtml(r.confidence.notes) + '</p></div>';
     }
 
     if (r.nextStep) html += '<div class="next-step"><strong>Next step:</strong> ' + escapeHtml(r.nextStep) + '</div>';
