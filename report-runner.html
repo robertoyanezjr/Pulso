@@ -78,7 +78,7 @@
   .plat-toggle { display: flex; align-items: center; gap: 7px; font-size: 13px; border: 1px solid var(--hair-strong); background: var(--surface-2); border-radius: 999px; padding: 7px 13px 7px 10px; cursor: pointer; user-select: none; }
   .plat-toggle input { accent-color: var(--accent); width: 14px; height: 14px; }
   .plat-toggle .dot { width: 9px; height: 9px; border-radius: 3px; }
-  .date-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .date-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .preset-row { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
   .preset-btn { font-size: 11px; border: 1px solid var(--hair-strong); background: var(--surface-2); color: var(--ink-dim); border-radius: 999px; padding: 5px 11px; cursor: pointer; }
   .preset-btn:hover { border-color: var(--accent); color: var(--ink); }
@@ -86,6 +86,13 @@
   .save-btn:hover { filter: brightness(1.08); }
   .save-btn:disabled { opacity: 0.45; cursor: not-allowed; filter: none; }
   .form-error { font-size: 12px; color: var(--accent); margin-top: 10px; }
+
+  /* stat tiles (shared visual language with the screener) */
+  .stat-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; }
+  .stat-tile { background: var(--surface-2); border: 1px solid var(--hair-strong); border-radius: 10px; padding: 12px 14px; }
+  .stat-tile .st-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-faint); }
+  .stat-tile .st-value { font-family: 'Anton', sans-serif; font-weight: 400; font-size: 22px; color: var(--ink); margin-top: 3px; line-height: 1; }
+  .stat-tile .st-sub { font-size: 11px; color: var(--ink-dim); margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   /* report render (shared with history) */
   .report-shell { border: 1px solid var(--hair-strong); border-radius: 14px; padding: 26px 28px; background: var(--surface); }
@@ -114,8 +121,9 @@
   .confidence li:last-child, .confidence p:last-child { margin-bottom: 0; }
   .next-step { margin-top: 18px; font-size: 13px; color: var(--ink-dim); line-height: 1.6; border-top: 1px solid var(--hair); padding-top: 14px; }
   .next-step strong { color: var(--ink); }
-  .src-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; font-size: 12px; margin-top: 6px; }
-  @media (max-width: 560px) { .src-grid { grid-template-columns: 1fr; } }
+  .src-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 20px; font-size: 12px; margin-top: 6px; }
+  .src-grid a { overflow-wrap: anywhere; }
+  @media (max-width: 560px) { .src-grid { grid-template-columns: minmax(0, 1fr); } }
   .src-grid a { color: var(--ink-dim); border-bottom-color: var(--hair-strong); }
   .methodology { margin-top: 14px; font-size: 11.5px; color: var(--ink-faint); line-height: 1.6; }
   .report-empty { text-align: center; padding: 50px 20px; color: var(--ink-dim); font-size: 13.5px; }
@@ -130,6 +138,47 @@
   .hist-card .h-kw { font-size: 11.5px; color: var(--ink-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   footer.app-foot { border-top: 1px solid var(--hair); padding-top: 20px; margin-top: 40px; font-size: 12px; color: var(--ink-faint); line-height: 1.7; }
+
+  /* ---- mobile: give it the same tight, native-app feel as the phone mockup ---- */
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px 56px; }
+    .masthead { padding: 22px 0 20px; margin-bottom: 20px; }
+    .kicker { font-size: 10.5px; margin-bottom: 12px; }
+    h1.title { font-size: clamp(28px, 9vw, 40px); }
+    .dek { font-size: 13.5px; }
+
+    .status-banner { padding: 11px 13px; font-size: 12.5px; margin-bottom: 20px; }
+
+    section { margin-bottom: 30px; }
+    .sec-head { margin-bottom: 12px; }
+    h2.sec-title { font-size: 17px; }
+    .sec-sub { font-size: 12.5px; margin: -6px 0 12px; }
+
+    .builder { padding: 16px; }
+    .field-label { margin: 15px 0 7px; }
+    input[type=text], input[type=date], textarea, .kw-row button {
+      font-size: 16px; /* prevents iOS auto-zoom on focus */
+      min-height: 44px;
+    }
+    .kw-row button { padding: 0 16px; }
+    .date-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .plat-toggle { padding: 9px 14px 9px 11px; min-height: 40px; }
+    .save-btn { padding: 14px; font-size: 15px; min-height: 48px; }
+    .preset-btn { padding: 7px 13px; }
+
+    .stat-row { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .stat-tile { padding: 10px 12px; }
+    .stat-tile .st-value { font-size: 19px; }
+
+    .report-shell { padding: 18px 16px; }
+    .report-title { font-size: 21px; }
+    .report-dek { font-size: 13px; }
+    .fact { padding: 12px 13px; gap: 10px; }
+    .fact-text { font-size: 13px; }
+    .src-grid { grid-template-columns: minmax(0, 1fr); }
+
+    .hist-card { flex: 0 0 180px; padding: 11px 12px; }
+  }
 </style>
 </head>
 <body>
@@ -177,10 +226,26 @@
   // ---------------------------------------------------------------
   // report template (used for every history entry, current or past)
   // ---------------------------------------------------------------
+  function renderStatRow(entry) {
+    var r = entry.report;
+    var req = entry.requestSnapshot;
+    var platformLabels = (req.platforms || []).map(function (id) { return getPlatform(id).label; });
+    var tiles = [
+      { label: "Keywords", value: String((req.keywords || []).length), sub: (req.keywords || []).join(", ") || "—" },
+      { label: "Platforms", value: String(platformLabels.length), sub: platformLabels.join(", ") || "—" },
+      { label: "Facts Confirmed", value: String((r.facts || []).length), sub: "sourced & cited" },
+      { label: "Sources Cited", value: String((r.sources || []).length), sub: "linked references" }
+    ];
+    return '<div class="stat-row">' + tiles.map(function (t) {
+      return '<div class="stat-tile"><div class="st-label">' + escapeHtml(t.label) + '</div><div class="st-value">' + escapeHtml(t.value) + '</div><div class="st-sub">' + escapeHtml(t.sub) + '</div></div>';
+    }).join("") + '</div>';
+  }
+
   function renderReport(entry) {
     if (!entry) return '<div class="report-shell"><div class="report-empty">No report yet — save a request above, then ask Claude to run it.</div></div>';
     var r = entry.report;
     var html = '<div class="report-shell">';
+    html += renderStatRow(entry);
     html += '<h3 class="report-title">' + escapeHtml(r.title) + '</h3>';
     html += '<div class="report-meta">PULLED ' + escapeHtml(r.pulledOn).toUpperCase() + '</div>';
     html += '<p class="report-dek">' + escapeHtml(r.dek) + '</p>';
