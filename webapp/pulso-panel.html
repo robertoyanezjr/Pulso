@@ -393,50 +393,50 @@
       <button type="button" class="day-pill" data-date="2026-08-24" onclick="renderDay('2026-08-24')">Mon 24</button>
       <button type="button" class="day-pill" data-date="2026-08-23" onclick="renderDay('2026-08-23')">Sun 23</button>
     </div>
-    <div class="section-sub" id="d-sub" style="margin:14px 0 20px;">1 item logged &middot; no weigh-in that day</div>
+    <div class="section-sub" id="d-sub" style="margin:14px 0 20px;">2 items logged &middot; no weigh-in that day</div>
     <div class="intake-target">Target &middot; 1,850 kcal &middot; 155g protein &middot; 160g carbs &middot; 65g fat &middot; 35g fiber <span style="color:var(--accent);">&middot; revised 8/22</span></div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Calories<small>budget</small></div>
-        <div class="macro-read" id="d-cal-read">304<span class="sub" id="d-cal-sub">of 1,850 &middot; 1,546 left</span></div>
+        <div class="macro-read" id="d-cal-read">1,249<span class="sub" id="d-cal-sub">of 1,850 &middot; 601 left</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-cal-bar" style="width:16%"></div></div>
+      <div class="bar-track"><div class="bar-fill good" id="d-cal-bar" style="width:68%"></div></div>
     </div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Protein<small>floor</small></div>
-        <div class="macro-read" id="d-pro-read">32g<span class="sub" id="d-pro-sub">of 155g &middot; 123g to go</span></div>
+        <div class="macro-read" id="d-pro-read">65g<span class="sub" id="d-pro-sub">of 155g &middot; 90g to go</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-pro-bar" style="width:21%"></div></div>
+      <div class="bar-track"><div class="bar-fill good" id="d-pro-bar" style="width:42%"></div></div>
     </div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Carbohydrate<small>target</small></div>
-        <div class="macro-read" id="d-carb-read">33g<span class="sub" id="d-carb-sub">of 160g &middot; 127g left</span></div>
+        <div class="macro-read" id="d-carb-read">145g<span class="sub" id="d-carb-sub">of 160g &middot; 15g left</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-carb-bar" style="width:21%"></div></div>
+      <div class="bar-track"><div class="bar-fill watch" id="d-carb-bar" style="width:91%"></div></div>
     </div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Fat<small>budget</small></div>
-        <div class="macro-read" id="d-fat-read">7g<span class="sub" id="d-fat-sub">of 65g &middot; 58g left</span></div>
+        <div class="macro-read" id="d-fat-read">45g<span class="sub" id="d-fat-sub">of 65g &middot; 20g left</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-fat-bar" style="width:11%"></div></div>
+      <div class="bar-track"><div class="bar-fill good" id="d-fat-bar" style="width:69%"></div></div>
     </div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Fiber<small>floor</small></div>
-        <div class="macro-read" id="d-fiber-read">6g<span class="sub" id="d-fiber-sub">of 35g &middot; 29g to go</span></div>
+        <div class="macro-read" id="d-fiber-read">13g<span class="sub" id="d-fiber-sub">of 35g &middot; 22g to go</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-fiber-bar" style="width:17%"></div></div>
+      <div class="bar-track"><div class="bar-fill good" id="d-fiber-bar" style="width:37%"></div></div>
     </div>
 
-    <div class="d-items" id="d-items">40g Kodiak Power Cakes mix, 1 whole egg, 100g egg whites, 75g mixed berries, water, hot sauce (breakfast)</div>
+    <div class="d-items" id="d-items">40g Kodiak Power Cakes mix, 1 whole egg, 100g egg whites, 75g mixed berries, water, hot sauce (breakfast) &middot; Wendy&rsquo;s Spicy Chicken Sandwich Combo &mdash; sandwich, medium natural-cut fries, ketchup (lunch)</div>
   </div>
 
   <!-- 7-Day Snapshot -->
@@ -473,26 +473,26 @@
       <line x1="20" y1="28.7" x2="320" y2="28.7" stroke="#4a4f54" stroke-width="1" stroke-dasharray="3 3"/>
 
       <!-- calorie area + line (full Sun-Sat week) -->
-      <path d="M20,112 L20,44.0 L70,49.1 L120,51.6 L170,50.3 L220,50.3 L270,44.6 L320,98.3 L320,112 Z" fill="url(#calFade)"/>
-      <polyline points="20,44.0 70,49.1 120,51.6 170,50.3 220,50.3 270,44.6 320,98.3" fill="none" stroke="#5b8def" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M20,112 L20,44.0 L70,49.1 L120,51.6 L170,50.3 L220,50.3 L270,44.6 L320,55.8 L320,112 Z" fill="url(#calFade)"/>
+      <polyline points="20,44.0 70,49.1 120,51.6 170,50.3 220,50.3 270,44.6 320,55.8" fill="none" stroke="#5b8def" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       <circle cx="20" cy="44.0" r="3.5" fill="#5b8def"/>
       <circle cx="70" cy="49.1" r="3.5" fill="#5b8def"/>
       <circle cx="120" cy="51.6" r="3.5" fill="#5b8def"/>
       <circle cx="170" cy="50.3" r="3.5" fill="#5b8def"/>
       <circle cx="220" cy="50.3" r="3.5" fill="#5b8def"/>
       <circle cx="270" cy="44.6" r="3.5" fill="#5b8def"/>
-      <circle cx="320" cy="98.3" r="3.5" fill="#5b8def"/>
+      <circle cx="320" cy="55.8" r="3.5" fill="#5b8def"/>
 
       <!-- protein area + line (full Sun-Sat week) -->
-      <path d="M20,112 L20,23.9 L70,26.0 L120,35.7 L170,33.5 L220,49.7 L270,44.3 L320,94.8 L320,112 Z" fill="url(#proFade)"/>
-      <polyline points="20,23.9 70,26.0 120,35.7 170,33.5 220,49.7 270,44.3 320,94.8" fill="none" stroke="#d6663d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M20,112 L20,23.9 L70,26.0 L120,35.7 L170,33.5 L220,49.7 L270,44.3 L320,77.1 L320,112 Z" fill="url(#proFade)"/>
+      <polyline points="20,23.9 70,26.0 120,35.7 170,33.5 220,49.7 270,44.3 320,77.1" fill="none" stroke="#d6663d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       <circle cx="20" cy="23.9" r="3.5" fill="#d6663d"/>
       <circle cx="70" cy="26.0" r="3.5" fill="#d6663d"/>
       <circle cx="120" cy="35.7" r="3.5" fill="#d6663d"/>
       <circle cx="170" cy="33.5" r="3.5" fill="#d6663d"/>
       <circle cx="220" cy="49.7" r="3.5" fill="#d6663d"/>
       <circle cx="270" cy="44.3" r="3.5" fill="#d6663d"/>
-      <circle cx="320" cy="94.8" r="3.5" fill="#d6663d"/>
+      <circle cx="320" cy="77.1" r="3.5" fill="#d6663d"/>
 
       <!-- day axis -->
       <text x="20" y="134" text-anchor="middle" font-size="11" font-weight="700" fill="#c7cbce" font-family="-apple-system,sans-serif">SUN</text>
@@ -513,7 +513,7 @@
     </svg>
 
     <div class="week-summary">
-      <b style="color:var(--ink);">8,787 kcal &middot; 886g protein</b> logged so far this week (day 7 of 7, Sun&ndash;Sat) &middot; target 1,850 kcal / 155g protein per day <span style="color:var(--accent);">(revised 8/22)</span> &middot; prior week (8/16&ndash;8/22) closed at 9,054 kcal / 828g protein total across all 7 days
+      <b style="color:var(--ink);">9,732 kcal &middot; 919g protein</b> logged so far this week (day 7 of 7, Sun&ndash;Sat) &middot; target 1,850 kcal / 155g protein per day <span style="color:var(--accent);">(revised 8/22)</span> &middot; prior week (8/16&ndash;8/22) closed at 9,054 kcal / 828g protein total across all 7 days
       <div style="margin-top:8px; color:var(--faint); font-size:13px;">Line height = % of daily target. The hatched zone is simply days that haven't happened yet — nothing plotted there is invented. Resets each real Sun&ndash;Sat week; every past week stays archived in Weekly Summary.</div>
     </div>
   </div>
@@ -523,7 +523,7 @@
     <summary>
       <div class="section-head">
         <div class="detail-head-row"><div class="section-title">Today's Log</div><span class="detail-chevron">&#9662;</span></div>
-        <div class="section-sub">1 logged</div>
+        <div class="section-sub">2 logged</div>
       </div>
     </summary>
     <div class="detail-inner">
@@ -531,6 +531,11 @@
         <div class="log-top"><div class="log-name">40g Kodiak Power Cakes mix, 1 whole egg, 100g egg whites, 75g mixed berries, water, hot sauce</div><div class="log-kcal">304</div></div>
         <div class="log-macros">32g P &middot; 33g C &middot; 7g F &middot; 6g fiber</div>
         <div class="log-note">Breakfast — familiar Kodiak template. First entry of the final day of the week.</div>
+      </div>
+      <div class="log-entry">
+        <div class="log-top"><div class="log-name">Wendy&rsquo;s Spicy Chicken Sandwich Combo — spicy chicken sandwich, medium natural-cut fries, ketchup</div><div class="log-kcal">945</div></div>
+        <div class="log-macros">33g P &middot; 112g C &middot; 38g F &middot; 7g fiber</div>
+        <div class="log-note">Lunch — restaurant/QSR estimate from Wendy's published nutrition; fry portion sized from photo. Carbs now the tightest margin of the day.</div>
       </div>
     </div>
   </details>
@@ -540,14 +545,20 @@
     <summary>
       <div class="section-head">
         <div class="detail-head-row"><div class="section-title">Debrief</div><span class="detail-chevron">&#9662;</span></div>
-        <div class="section-sub">on pace</div>
+        <div class="section-sub">watch carbs</div>
       </div>
     </summary>
     <div class="detail-inner">
       <div class="debrief-item">
         <div class="debrief-bar good"></div>
         <div class="debrief-body">
-          <b>Good start</b> — 304 kcal / 32g protein / 6g fiber from breakfast, comfortably within target with the full day still ahead. Tonal session already in too — 4,308 lbs, 100% movement target. Final day of the tracking week (Sun 8/23&ndash;Sat 8/29) — full week recap once today closes out.
+          <b>Good start</b> — 304 kcal / 32g protein / 6g fiber from a Kodiak breakfast, comfortably within target. Tonal session already in too — 4,308 lbs, 100% movement target.
+        </div>
+      </div>
+      <div class="debrief-item">
+        <div class="debrief-bar warn"></div>
+        <div class="debrief-body">
+          <b>Wendy's for lunch</b> — spicy chicken sandwich combo with fries pushed the day to 1,249 kcal / 65g protein / 145g carb / 45g fat / 13g fiber. Carbs now at 91% of the 160g budget with dinner still ahead — the fries did most of that work. Calories and fat still comfortable (68% and 69% of budget). Final day of the tracking week (Sun 8/23&ndash;Sat 8/29) — full week recap once today closes out.
         </div>
       </div>
     </div>
@@ -564,8 +575,8 @@
     <div class="detail-inner">
       <div class="panel-disclaimer">Simulated — my read of each person's public work applied to your log, not their real opinion or an actual review by them. Trimmed to a core 6 on 8/18 for a leaner read — 7 others retired, history preserved in the tracker, not deleted.</div>
 
-      <div class="panel-cadence-label">Today &middot; on pace</div>
-      <div class="panel-tag" style="margin-left:0;">One entry so far — 304 kcal, 32g protein, 6g fiber from breakfast, plus a Tonal session already in (4,308 lbs, 100% movement target). Too early in the day for a full nutrition read.</div>
+      <div class="panel-cadence-label">Today &middot; watch carbs</div>
+      <div class="panel-tag" style="margin-left:0;">Two entries so far — Kodiak breakfast, then a Wendy's Spicy Chicken Sandwich Combo for lunch — plus a Tonal session already in (4,308 lbs, 100% movement target). Day total: 1,249 kcal / 65g protein / 145g carb / 45g fat / 13g fiber. Carbs at 91% of the 160g budget with dinner still ahead; calories and fat still comfortable.</div>
 
       <div class="panel-cadence-label" style="margin-top:22px; padding-top:20px; border-top:1px solid var(--line-soft);">This Week &middot; 7 of 7 days</div>
       <div class="panel-row">
@@ -759,9 +770,9 @@
       items: '~0.5 whole egg, 80&ndash;90g egg whites, 45&ndash;50g carne asada, 35&ndash;40g spinach (breakfast) &middot; Restaurant lunch &mdash; octopus/prosciutto/cheese/watermelon appetizer + skin-on fish, zucchini, greens, herb sauce main (lunch) &middot; 100g Greek yogurt, 100g mixed berries, 80g banana, &frac12; scoop protein powder, chia (evening snack) &middot; 189g fresh mango (snack)'
     },
     '2026-08-29': {
-      label: 'Sat, Aug 29 &middot; Today', weight: null, itemCount: 1,
-      cal: 304, pro: 32, carb: 33, fat: 7, fiber: 6,
-      items: '40g Kodiak Power Cakes mix, 1 whole egg, 100g egg whites, 75g mixed berries, water, hot sauce (breakfast)'
+      label: 'Sat, Aug 29 &middot; Today', weight: null, itemCount: 2,
+      cal: 1249, pro: 65, carb: 145, fat: 45, fiber: 13,
+      items: '40g Kodiak Power Cakes mix, 1 whole egg, 100g egg whites, 75g mixed berries, water, hot sauce (breakfast) &middot; Wendy&rsquo;s Spicy Chicken Sandwich Combo &mdash; sandwich, medium natural-cut fries, ketchup (lunch)'
     }
   };
 
