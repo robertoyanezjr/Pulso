@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pulso Report Runner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #10121c; --surface: #181b2b; --surface-2: #1f2335;
+    --hair: rgba(244,241,234,0.10); --hair-strong: rgba(244,241,234,0.18);
+    --ink: #f4f1ea; --ink-dim: #9a9db8; --ink-faint: #666a86;
+    --accent: #ff5468; --amber: #ffb238; --mint: #33d6a6;
+    --p-youtube: #3987e5; --p-facebook: #d95926; --p-instagram: #199e70; --p-tiktok: #c98500; --p-x: #d55181;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: 'Manrope', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    background-image:
+      radial-gradient(ellipse 900px 500px at 12% -10%, rgba(255,84,104,0.14), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(255,178,56,0.09), transparent 55%);
+    background-attachment: fixed;
+  }
+  a { color: var(--amber); text-decoration: none; border-bottom: 1px solid rgba(255,178,56,0.35); }
+  a:hover { border-bottom-color: var(--amber); }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+  button { font-family: inherit; }
+
+  /* masthead */
+  .masthead { padding: 36px 0 26px; border-bottom: 1px solid var(--hair); margin-bottom: 28px; }
+  .kicker { display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .kicker .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px rgba(255,84,104,0.25); }
+  h1.title { font-family: 'Anton', sans-serif; font-weight: 400; font-size: clamp(34px, 6vw, 52px); line-height: 0.96; margin: 0 0 12px; text-transform: uppercase; text-wrap: balance; }
+  h1.title .accent { color: var(--accent); }
+  .dek { font-size: 15px; line-height: 1.6; color: var(--ink-dim); max-width: 62ch; margin: 0; }
+
+  /* status banner */
+  .status-banner { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px; border: 1px solid var(--hair-strong); background: var(--surface); font-size: 13px; margin-bottom: 26px; }
+  .status-banner .sdot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .status-banner.draft .sdot { background: var(--ink-faint); }
+  .status-banner.pending .sdot { background: var(--amber); box-shadow: 0 0 0 3px rgba(255,178,56,0.22); }
+  .status-banner.readonly .sdot { background: var(--ink-faint); }
+  .status-banner b { color: var(--ink); }
+  .status-banner .msg { color: var(--ink-dim); flex: 1; }
+  .status-banner code { font-family: 'JetBrains Mono', monospace; background: var(--surface-2); padding: 1px 6px; border-radius: 4px; color: var(--amber); }
+
+  /* section heading */
+  .sec-head { display: flex; align-items: baseline; gap: 12px; margin: 0 0 16px; }
+  .sec-num { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); }
+  h2.sec-title { font-family: 'Anton', sans-serif; font-weight: 400; font-size: 20px; letter-spacing: 0.01em; text-transform: uppercase; margin: 0; }
+  section { margin-bottom: 40px; }
+  .sec-sub { font-size: 13px; color: var(--ink-dim); margin: -8px 0 16px; max-width: 62ch; line-height: 1.6; }
+
+  /* builder card */
+  .builder { border: 1px solid var(--hair-strong); background: var(--surface); border-radius: 14px; padding: 22px; }
+  .field-label { display: block; font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-dim); margin: 18px 0 8px; }
+  .field-label:first-of-type { margin-top: 0; }
+  input[type=text], input[type=date], textarea {
+    width: 100%; background: var(--surface-2); border: 1px solid var(--hair-strong); color: var(--ink);
+    border-radius: 8px; padding: 9px 11px; font-size: 13.5px; font-family: inherit;
+  }
+  textarea { resize: vertical; min-height: 60px; line-height: 1.5; }
+  input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .kw-row { display: flex; gap: 8px; }
+  .kw-row button { flex-shrink: 0; border: 1px solid var(--hair-strong); background: var(--surface-2); color: var(--ink); border-radius: 8px; padding: 0 14px; font-size: 13px; cursor: pointer; }
+  .kw-row button:hover { border-color: var(--accent); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; min-height: 20px; }
+  .chip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface-2); border: 1px solid var(--hair-strong); border-radius: 999px; padding: 4px 6px 4px 12px; font-size: 12.5px; }
+  .chip button { border: none; background: transparent; color: var(--ink-faint); cursor: pointer; font-size: 13px; padding: 2px; border-radius: 50%; }
+  .chip button:hover { color: var(--accent); }
+  .empty-hint { font-size: 12.5px; color: var(--ink-faint); }
+  .platform-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .plat-toggle { display: flex; align-items: center; gap: 7px; font-size: 13px; border: 1px solid var(--hair-strong); background: var(--surface-2); border-radius: 999px; padding: 7px 13px 7px 10px; cursor: pointer; user-select: none; }
+  .plat-toggle input { accent-color: var(--accent); width: 14px; height: 14px; }
+  .plat-toggle .dot { width: 9px; height: 9px; border-radius: 3px; }
+  .date-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .preset-row { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+  .preset-btn { font-size: 11px; border: 1px solid var(--hair-strong); background: var(--surface-2); color: var(--ink-dim); border-radius: 999px; padding: 5px 11px; cursor: pointer; }
+  .preset-btn:hover { border-color: var(--accent); color: var(--ink); }
+  .save-btn { width: 100%; margin-top: 20px; background: var(--accent); color: #10121c; border: none; border-radius: 9px; padding: 12px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .save-btn:hover { filter: brightness(1.08); }
+  .save-btn:disabled { opacity: 0.45; cursor: not-allowed; filter: none; }
+  .form-error { font-size: 12px; color: var(--accent); margin-top: 10px; }
+
+  /* report render (shared with history) */
+  .report-shell { border: 1px solid var(--hair-strong); border-radius: 14px; padding: 26px 28px; background: var(--surface); }
+  .report-title { font-family: 'Anton', sans-serif; font-weight: 400; font-size: 26px; text-transform: uppercase; margin: 0 0 8px; text-wrap: balance; }
+  .report-meta { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--ink-faint); letter-spacing: 0.04em; margin-bottom: 14px; }
+  .report-dek { font-size: 14px; color: var(--ink-dim); line-height: 1.65; margin-bottom: 22px; max-width: 66ch; }
+  .rep-sub { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-faint); margin: 26px 0 10px; }
+  .rep-sub:first-of-type { margin-top: 0; }
+  .ledger { display: flex; flex-direction: column; gap: 1px; background: var(--hair); border: 1px solid var(--hair-strong); border-radius: 10px; overflow: hidden; }
+  .fact { background: var(--surface-2); padding: 14px 16px; display: grid; grid-template-columns: 20px 1fr; gap: 12px; }
+  .fact-mark { color: var(--mint); font-size: 14px; line-height: 1.5; }
+  .fact-text { font-size: 13.5px; line-height: 1.6; color: var(--ink); }
+  .fact-src { display: block; margin-top: 5px; font-family: 'JetBrains Mono', monospace; font-size: 10px; }
+  .fact-src a { color: var(--ink-dim); border-bottom-color: var(--hair-strong); }
+  .fact-src a:hover { color: var(--amber); border-bottom-color: var(--amber); }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ent-chip { font-size: 12.5px; font-weight: 600; padding: 6px 12px; border-radius: 7px; background: var(--surface-2); border: 1px solid var(--hair-strong); }
+  .momentum-list { border-left: 2px solid var(--hair-strong); padding-left: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .m-item { position: relative; }
+  .m-item::before { content: ""; position: absolute; left: -23px; top: 5px; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .m-date { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--accent); }
+  .m-body { font-size: 13px; color: var(--ink); line-height: 1.6; margin-top: 2px; }
+  .confidence { border: 1px solid rgba(255,178,56,0.35); background: linear-gradient(180deg, rgba(255,178,56,0.08), rgba(255,178,56,0.02)); border-radius: 10px; padding: 16px 18px; }
+  .confidence ul { margin: 8px 0; padding-left: 18px; }
+  .confidence li, .confidence p { font-size: 13px; line-height: 1.65; color: var(--ink); margin: 0 0 6px; }
+  .confidence li:last-child, .confidence p:last-child { margin-bottom: 0; }
+  .next-step { margin-top: 18px; font-size: 13px; color: var(--ink-dim); line-height: 1.6; border-top: 1px solid var(--hair); padding-top: 14px; }
+  .next-step strong { color: var(--ink); }
+  .src-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px; font-size: 12px; margin-top: 6px; }
+  @media (max-width: 560px) { .src-grid { grid-template-columns: 1fr; } }
+  .src-grid a { color: var(--ink-dim); border-bottom-color: var(--hair-strong); }
+  .methodology { margin-top: 14px; font-size: 11.5px; color: var(--ink-faint); line-height: 1.6; }
+  .report-empty { text-align: center; padding: 50px 20px; color: var(--ink-dim); font-size: 13.5px; }
+
+  /* history rail */
+  .history-row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; }
+  .hist-card { flex: 0 0 220px; border: 1px solid var(--hair-strong); background: var(--surface); border-radius: 10px; padding: 13px 14px; cursor: pointer; }
+  .hist-card:hover { border-color: var(--accent); }
+  .hist-card.active { border-color: var(--accent); background: var(--surface-2); }
+  .hist-card .h-date { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--ink-faint); }
+  .hist-card .h-title { font-size: 13px; font-weight: 700; margin: 4px 0 4px; }
+  .hist-card .h-kw { font-size: 11.5px; color: var(--ink-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  footer.app-foot { border-top: 1px solid var(--hair); padding-top: 20px; margin-top: 40px; font-size: 12px; color: var(--ink-faint); line-height: 1.7; }
+</style>
+</head>
+<body>
+<div id="app"><div class="wrap"><p style="padding:60px 0; color:var(--ink-dim);">Loading…</p></div></div>
+
+<script id="state-data" type="application/json">{"version":1,"request":{"keywords":[],"platforms":["youtube","facebook","instagram","tiktok","x"],"startDate":"","endDate":"","notes":"","status":"draft","requestedAt":null},"history":[{"id":"seed-pjfest","requestedAt":"2026-08-29T15:00:00.000Z","completedAt":"2026-08-29T15:12:00.000Z","requestSnapshot":{"keywords":["PJ Fest Miami","PJ Fest Coca-Cola","PJ Fest Jay Wheeler"],"platforms":["youtube","facebook","instagram","tiktok","x"],"startDate":"2026-08-23","endDate":"2026-08-29","notes":"First real run — established the report format."},"report":{"title":"PJ Fest Miami Watch","pulledOn":"August 29, 2026","dek":"A real, source-linked read on PJ Fest’s Miami leg — the Bresh Party opener and the upcoming Jay Wheeler concert — plus Coca-Cola’s sponsorship, built from live web search rather than platform APIs or fabricated metrics.","scopeLine":"PJ Fest Miami · PJ Fest Coca-Cola · PJ Fest Jay Wheeler — Sun Aug 23–Sat Aug 29, 2026 — IG · YouTube · TikTok · X · Facebook","facts":[{"text":"PJ Fest is Premios Juventud’s first expansion beyond a single gala into a six-day cultural platform across Miami, Houston, Los Angeles and Marbella, culminating in the September 3 awards show.","sources":[{"label":"TelevisaUnivision, Jul 28","url":"https://corporate.televisaunivision.com/press/2026/07/28/premios-juventud-unveils-the-most-ambitious-evolution-with-pj-fest-and-announces-the-nominees-for-its-first-edition-in-europe/"},{"label":"Billboard","url":"https://www.billboard.com/pro/premios-juventud-2026-pj-fest-spain-televisaunivision/"}]},{"text":"Miami’s opening event, Bresh Party, ran August 29 — a long-running Latin-culture party brand.","sources":[{"label":"Univision","url":"https://www.univision.com/shows/premios-juventud/premios-juventud-2026-toda-la-informacion-sobre-pj-fest-que-durara-una-semana-cuando-inicia-en-que-consiste-y-mas"}]},{"text":"Miami’s second event is a private Jay Wheeler concert on August 31, streaming on ViX, YouTube and Facebook — still upcoming as of this brief.","sources":[{"label":"Univision","url":"https://www.univision.com/shows/premios-juventud/premios-juventud-2026-toda-la-informacion-sobre-pj-fest-que-durara-una-semana-cuando-inicia-en-que-consiste-y-mas"},{"label":"TelevisaUnivision, Jul 6","url":"https://corporate.televisaunivision.com/press/2026/07/06/premios-juventud-will-make-history-on-september-3-with-its-first-ever-edition-in-europe-during-the-inaugural-pj-fest/"}]},{"text":"Coca-Cola is named among confirmed sponsors of the 23rd edition of Premios Juventud, alongside Air Europa, Bulova LATAM, JCDecaux, METT Hotel, NYX, Planet Fitness and Universal Pictures.","sources":[{"label":"TelevisaUnivision, Aug 28","url":"https://corporate.televisaunivision.com/press/2026/08/28/where-to-watch-23rd-annual-premios-juventud-a-historic-night-from-starlite-marbella-on-september-3/"}]},{"text":"Jay Wheeler enters the week already active in the news cycle: the Aug 16 “Unidos por los Nuestros” Miami telethon, a global UTA signing, and three Premio Lo Nuestro 2026 nominations.","sources":[{"label":"Variety","url":"https://variety.com/2026/music/news/jay-wheeler-signs-with-uta-1236758958/"},{"label":"LaMezcla","url":"https://lamezcla.com/jay-wheeler-to-perform-in-arcangel-tribute-at-premio-lo-nuestro-2026/"}]}],"entitiesLabel":"Sponsors Named","entities":["Coca-Cola","Air Europa","Bulova LATAM","JCDecaux","METT Hotel","NYX Professional Makeup","Planet Fitness","Universal Pictures"],"momentum":[{"date":"AUG 24","body":"Spanish outlets cover Starlite Marbella’s selection as first European host venue."},{"date":"AUG 27","body":"TelevisaUnivision announces a fourth round of confirmed performers."},{"date":"AUG 28","body":"“Where to Watch” release consolidates the full broadcast footprint and sponsor list."},{"date":"AUG 29","body":"PJ Fest opens on the ground in Miami with the Bresh Party."}],"confidence":{"unavailable":["Instagram / TikTok / Facebook — no public comment or reaction data surfaced; these platforms don’t expose that to search.","X (Twitter) — the #PJFest hashtag page exists but isn’t readable without being logged in.","YouTube — no PJ Fest or Jay Wheeler Miami video surfaced yet; the Aug 31 concert hasn’t aired."],"notes":"The Jay Wheeler Miami show was still two days out as of this brief, so no genuine post-show reaction could exist yet on any platform. The Coca-Cola sponsorship fact rests on search-indexed text — the publisher domain was unreachable to fetch directly."},"nextStep":"Re-run this brief on or after September 1, once the Jay Wheeler stream and the rest of the Miami leg have actually happened.","sources":[{"label":"TelevisaUnivision — PJ Fest unveiled","url":"https://corporate.televisaunivision.com/press/2026/07/28/premios-juventud-unveils-the-most-ambitious-evolution-with-pj-fest-and-announces-the-nominees-for-its-first-edition-in-europe/"},{"label":"Univision — PJ Fest full week guide","url":"https://www.univision.com/shows/premios-juventud/premios-juventud-2026-toda-la-informacion-sobre-pj-fest-que-durara-una-semana-cuando-inicia-en-que-consiste-y-mas"},{"label":"Billboard Pro — PJ Fest evolution","url":"https://www.billboard.com/pro/premios-juventud-2026-pj-fest-spain-televisaunivision/"},{"label":"Variety — Jay Wheeler signs with UTA","url":"https://variety.com/2026/music/news/jay-wheeler-signs-with-uta-1236758958/"}],"methodology":"Live web search performed August 29, 2026. Two publisher domains could not be fetched directly from this environment, so those facts rest on indexed search excerpts rather than a direct page read. No data from Instagram, TikTok, X or Facebook’s internal systems was accessed."}}]}</script>
+
+<script id="app-logic">
+(function () {
+  "use strict";
+
+  var PLATFORMS = [
+    { id: "youtube", label: "YouTube", color: "var(--p-youtube)" },
+    { id: "facebook", label: "Facebook", color: "var(--p-facebook)" },
+    { id: "instagram", label: "Instagram", color: "var(--p-instagram)" },
+    { id: "tiktok", label: "TikTok", color: "var(--p-tiktok)" },
+    { id: "x", label: "X", color: "var(--p-x)" }
+  ];
+  var HISTORY_CAP = 12;
+
+  function escapeHtml(str) {
+    return String(str == null ? "" : str).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+  function uid() { return "r" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+  function fmtDateInput(d) { return d.toISOString().slice(0, 10); }
+  function fmtDateNice(iso) {
+    if (!iso) return "";
+    var d = new Date(iso + "T00:00:00");
+    return d.toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" });
+  }
+
+  // ---------------------------------------------------------------
+  // state
+  // ---------------------------------------------------------------
+  var state = JSON.parse(document.getElementById("state-data").textContent);
+  var ui = { selectedHistoryId: state.history.length ? state.history[0].id : null, kwDraft: "", saving: false, writable: true, error: "" };
+
+  function getPlatform(id) {
+    for (var i = 0; i < PLATFORMS.length; i++) if (PLATFORMS[i].id === id) return PLATFORMS[i];
+    return { id: id, label: id, color: "var(--ink-faint)" };
+  }
+
+  // ---------------------------------------------------------------
+  // report template (used for every history entry, current or past)
+  // ---------------------------------------------------------------
+  function renderReport(entry) {
+    if (!entry) return '<div class="report-shell"><div class="report-empty">No report yet — save a request above, then ask Claude to run it.</div></div>';
+    var r = entry.report;
+    var html = '<div class="report-shell">';
+    html += '<h3 class="report-title">' + escapeHtml(r.title) + '</h3>';
+    html += '<div class="report-meta">PULLED ' + escapeHtml(r.pulledOn).toUpperCase() + '</div>';
+    html += '<p class="report-dek">' + escapeHtml(r.dek) + '</p>';
+    if (r.scopeLine) html += '<div class="report-meta" style="margin-bottom:22px;">' + escapeHtml(r.scopeLine) + '</div>';
+
+    if (r.facts && r.facts.length) {
+      html += '<div class="rep-sub">Confirmed, Sourced Facts</div><div class="ledger">';
+      r.facts.forEach(function (f) {
+        html += '<div class="fact"><div class="fact-mark">✓</div><div><div class="fact-text">' + escapeHtml(f.text) + '</div>';
+        if (f.sources && f.sources.length) {
+          html += '<span class="fact-src">' + f.sources.map(function (s) {
+            return '<a href="' + escapeHtml(s.url) + '" target="_blank" rel="noopener">' + escapeHtml(s.label) + '</a>';
+          }).join(" · ") + '</span>';
+        }
+        html += '</div></div>';
+      });
+      html += '</div>';
+    }
+
+    if (r.entities && r.entities.length) {
+      html += '<div class="rep-sub">' + escapeHtml(r.entitiesLabel || "Named") + '</div><div class="chip-row">';
+      r.entities.forEach(function (e) { html += '<span class="ent-chip">' + escapeHtml(e) + '</span>'; });
+      html += '</div>';
+    }
+
+    if (r.momentum && r.momentum.length) {
+      html += '<div class="rep-sub">Press / Coverage Momentum</div><div class="momentum-list">';
+      r.momentum.forEach(function (m) {
+        html += '<div class="m-item"><div class="m-date">' + escapeHtml(m.date) + '</div><div class="m-body">' + escapeHtml(m.body) + '</div></div>';
+      });
+      html += '</div>';
+    }
+
+    if (r.confidence) {
+      html += '<div class="rep-sub">Data Confidence</div><div class="confidence">';
+      if (r.confidence.unavailable && r.confidence.unavailable.length) {
+        html += '<ul>' + r.confidence.unavailable.map(function (u) { return '<li>' + escapeHtml(u) + '</li>'; }).join("") + '</ul>';
+      }
+      if (r.confidence.notes) html += '<p>' + escapeHtml(r.confidence.notes) + '</p>';
+      html += '</div>';
+    }
+
+    if (r.nextStep) html += '<div class="next-step"><strong>Next step:</strong> ' + escapeHtml(r.nextStep) + '</div>';
+
+    if (r.sources && r.sources.length) {
+      html += '<div class="rep-sub">Sources</div><div class="src-grid">' + r.sources.map(function (s) {
+        return '<a href="' + escapeHtml(s.url) + '" target="_blank" rel="noopener">' + escapeHtml(s.label) + '</a>';
+      }).join("") + '</div>';
+    }
+    if (r.methodology) html += '<p class="methodology">' + escapeHtml(r.methodology) + '</p>';
+
+    html += '</div>';
+    return html;
+  }
+
+  // ---------------------------------------------------------------
+  // builder
+  // ---------------------------------------------------------------
+  function renderBuilder() {
+    var req = state.request;
+    var kwChips = req.keywords.length
+      ? req.keywords.map(function (kw, i) {
+          return '<span class="chip"><span>' + escapeHtml(kw) + '</span><button data-remove-kw="' + i + '" aria-label="remove">✕</button></span>';
+        }).join("")
+      : '<span class="empty-hint">No keywords yet — add at least one.</span>';
+
+    var platRow = PLATFORMS.map(function (p) {
+      var checked = req.platforms.indexOf(p.id) !== -1 ? "checked" : "";
+      return '<label class="plat-toggle"><input type="checkbox" data-platform="' + p.id + '" ' + checked + '><span class="dot" style="background:' + p.color + '"></span>' + p.label + '</label>';
+    }).join("");
+
+    var errors = validateRequest();
+    var errorHtml = (ui.error) ? '<div class="form-error">' + escapeHtml(ui.error) + '</div>' : "";
+
+    return (
+      '<div class="builder">' +
+      '<label class="field-label" for="kw-input">Keywords &amp; hashtags</label>' +
+      '<div class="kw-row"><input type="text" id="kw-input" placeholder="e.g. PJ Fest Miami" maxlength="80" value="' + escapeHtml(ui.kwDraft) + '"><button id="kw-add">Add</button></div>' +
+      '<div class="chips">' + kwChips + '</div>' +
+      '<label class="field-label">Platforms to check</label>' +
+      '<div class="platform-grid">' + platRow + '</div>' +
+      '<label class="field-label">Timeframe</label>' +
+      '<div class="preset-row"><button class="preset-btn" data-preset="24h">Last 24h</button><button class="preset-btn" data-preset="7d">Last 7 days</button><button class="preset-btn" data-preset="30d">Last 30 days</button></div>' +
+      '<div class="date-grid" style="margin-top:10px;">' +
+      '<div><label class="field-label" style="margin-top:0;">Start date</label><input type="date" id="start-date" value="' + escapeHtml(req.startDate) + '"></div>' +
+      '<div><label class="field-label" style="margin-top:0;">End date</label><input type="date" id="end-date" value="' + escapeHtml(req.endDate) + '"></div>' +
+      '</div>' +
+      '<label class="field-label">Focus notes <span style="text-transform:none; font-weight:400; color:var(--ink-faint);">(optional — tell Claude what to look for)</span></label>' +
+      '<textarea id="notes-input" placeholder="e.g. confirm the Coca-Cola sponsorship and check for reactions to the Jay Wheeler show">' + escapeHtml(req.notes) + '</textarea>' +
+      errorHtml +
+      '<button class="save-btn" id="save-btn" ' + (errors.length || ui.saving || !ui.writable ? "disabled" : "") + '>' + (ui.saving ? "Saving…" : "Save &amp; Request Report") + '</button>' +
+      '</div>'
+    );
+  }
+
+  function validateRequest() {
+    var req = state.request;
+    var errs = [];
+    if (!req.keywords.length) errs.push("Add at least one keyword or hashtag.");
+    if (!req.platforms.length) errs.push("Select at least one platform.");
+    if (!req.startDate || !req.endDate) errs.push("Pick a start and end date.");
+    else if (new Date(req.endDate) < new Date(req.startDate)) errs.push("End date must be on or after the start date.");
+    return errs;
+  }
+
+  // ---------------------------------------------------------------
+  // history rail
+  // ---------------------------------------------------------------
+  function renderHistory() {
+    if (!state.history.length) return "";
+    var cards = state.history.map(function (h) {
+      var active = h.id === ui.selectedHistoryId ? " active" : "";
+      var kwLine = h.requestSnapshot.keywords.join(", ");
+      return '<div class="hist-card' + active + '" data-hist="' + h.id + '">' +
+        '<div class="h-date">' + escapeHtml(new Date(h.completedAt).toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" })) + '</div>' +
+        '<div class="h-title">' + escapeHtml(h.report.title) + '</div>' +
+        '<div class="h-kw">' + escapeHtml(kwLine) + '</div></div>';
+    }).join("");
+    return '<section><div class="sec-head"><span class="sec-num">HISTORY</span><h2 class="sec-title">Past Reports</h2></div><div class="history-row">' + cards + '</div></section>';
+  }
+
+  // ---------------------------------------------------------------
+  // full app render
+  // ---------------------------------------------------------------
+  function renderApp() {
+    var statusClass = !ui.writable ? "readonly" : (state.request.status === "pending" ? "pending" : "draft");
+    var statusMsg;
+    if (!ui.writable) {
+      statusMsg = "You're viewing a read-only copy — saving a request isn't available here.";
+    } else if (state.request.status === "pending") {
+      statusMsg = "Report requested. Tell Claude <code>run the pending report</code> in your conversation — it will read this page and publish the results here.";
+    } else {
+      statusMsg = "Fill in a request below, save it, then tell Claude to run it.";
+    }
+
+    var selected = null;
+    for (var i = 0; i < state.history.length; i++) if (state.history[i].id === ui.selectedHistoryId) selected = state.history[i];
+
+    var html =
+      '<div class="wrap">' +
+      '<div class="masthead">' +
+      '<div class="kicker"><span class="pulse"></span> PULSO · REPORT RUNNER</div>' +
+      '<h1 class="title">Request a <span class="accent">Report</span></h1>' +
+      '<p class="dek">Plug in keywords, platforms and a date window. Save the request, then ask Claude to run it — it does the live web research and publishes the results back into this page, in the same format every time.</p>' +
+      '</div>' +
+      '<div class="status-banner ' + statusClass + '"><span class="sdot"></span><span class="msg">' + statusMsg + '</span></div>' +
+      '<section><div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Build Your Request</h2></div>' +
+      renderBuilder() +
+      '</section>' +
+      '<section><div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Latest Report</h2></div>' +
+      '<p class="sec-sub">Rendered from the most recently completed run. Pick an older one from history below to compare.</p>' +
+      renderReport(selected) +
+      '</section>' +
+      renderHistory() +
+      '<footer class="app-foot">This page never scrapes anything on its own — no background service is running. Saving a request stores it on this page; Claude does the actual live web research (real sources, cited) the next time you ask it to run the report, then publishes the populated result back here. See the Data Confidence section in each report for exactly what could and couldn’t be verified.</footer>' +
+      '</div>';
+
+    document.getElementById("app").innerHTML = html;
+    bindEvents();
+  }
+
+  // ---------------------------------------------------------------
+  // events
+  // ---------------------------------------------------------------
+  function bindEvents() {
+    var kwInput = document.getElementById("kw-input");
+    var addKw = function () {
+      var val = (kwInput.value || "").trim();
+      if (!val) return;
+      if (state.request.keywords.indexOf(val) === -1) state.request.keywords.push(val);
+      ui.kwDraft = "";
+      ui.error = "";
+      renderApp();
+    };
+    var addBtn = document.getElementById("kw-add");
+    if (addBtn) addBtn.addEventListener("click", addKw);
+    if (kwInput) {
+      kwInput.addEventListener("input", function () { ui.kwDraft = kwInput.value; });
+      kwInput.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); addKw(); } });
+      kwInput.focus();
+      kwInput.setSelectionRange(kwInput.value.length, kwInput.value.length);
+    }
+    document.querySelectorAll("[data-remove-kw]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        state.request.keywords.splice(parseInt(btn.getAttribute("data-remove-kw"), 10), 1);
+        renderApp();
+      });
+    });
+    document.querySelectorAll("[data-platform]").forEach(function (cb) {
+      cb.addEventListener("change", function () {
+        var id = cb.getAttribute("data-platform");
+        var idx = state.request.platforms.indexOf(id);
+        if (cb.checked && idx === -1) state.request.platforms.push(id);
+        if (!cb.checked && idx !== -1) state.request.platforms.splice(idx, 1);
+        renderApp();
+      });
+    });
+    document.querySelectorAll("[data-preset]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var end = new Date(), start = new Date();
+        var p = btn.getAttribute("data-preset");
+        if (p === "24h") start.setDate(start.getDate() - 1);
+        if (p === "7d") start.setDate(start.getDate() - 7);
+        if (p === "30d") start.setDate(start.getDate() - 30);
+        state.request.startDate = fmtDateInput(start);
+        state.request.endDate = fmtDateInput(end);
+        renderApp();
+      });
+    });
+    var startEl = document.getElementById("start-date");
+    var endEl = document.getElementById("end-date");
+    if (startEl) startEl.addEventListener("change", function () { state.request.startDate = startEl.value; renderApp(); });
+    if (endEl) endEl.addEventListener("change", function () { state.request.endDate = endEl.value; renderApp(); });
+    var notesEl = document.getElementById("notes-input");
+    if (notesEl) notesEl.addEventListener("change", function () { state.request.notes = notesEl.value; });
+
+    var saveBtn = document.getElementById("save-btn");
+    if (saveBtn) saveBtn.addEventListener("click", onSaveRequest);
+
+    document.querySelectorAll("[data-hist]").forEach(function (card) {
+      card.addEventListener("click", function () {
+        ui.selectedHistoryId = card.getAttribute("data-hist");
+        renderApp();
+      });
+    });
+  }
+
+  function onSaveRequest() {
+    var errs = validateRequest();
+    if (errs.length) { ui.error = errs[0]; renderApp(); return; }
+    state.request.status = "pending";
+    state.request.requestedAt = new Date().toISOString();
+    ui.error = "";
+    ui.saving = true;
+    renderApp();
+    publishState();
+  }
+
+  // ---------------------------------------------------------------
+  // publish (runtime capability)
+  // ---------------------------------------------------------------
+  function serializeDocument() {
+    // <head> holds only static markup (fonts, title, CSS) — nothing dynamic
+    // ever lives there, so capturing it live is safe (unlike the full body,
+    // which can carry viewer-session state).
+    var headHtml = document.head.outerHTML;
+    var stateJson = JSON.stringify(state).replace(/</g, "\\u003c");
+    // app-logic's own source is captured verbatim so the republished page
+    // keeps this exact save/publish capability — only state-data changes.
+    var logicSrc = document.getElementById("app-logic").textContent;
+    return (
+      "<!doctype html>\n<html lang=\"en\">\n" + headHtml +
+      "\n<body>\n<div id=\"app\"><div class=\"wrap\"><p style=\"padding:60px 0; color:var(--ink-dim);\">Loading...</p></div></div>\n\n" +
+      "<script id=\"state-data\" type=\"application/json\">" + stateJson + "<\/script>\n\n" +
+      "<script id=\"app-logic\">" + logicSrc + "<\/script>\n\n</body>\n</html>"
+    );
+  }
+
+  function publishState() {
+    if (window.__pulsoPublishing) return;
+    window.__pulsoPublishing = true;
+    Promise.resolve(window.claude ? window.claude.use("artifact") : null).then(function (artifact) {
+      if (!artifact) { ui.writable = false; ui.saving = false; window.__pulsoPublishing = false; renderApp(); return; }
+      return artifact.publish(serializeDocument()).then(function () {
+        // success: the shell reloads this view to the new version.
+      }, function (err) {
+        ui.saving = false;
+        window.__pulsoPublishing = false;
+        if (err && (err.code === "not_writer" || err.code === "not_granted" || err.code === "capability_disabled" || err.code === "not_declared")) {
+          ui.writable = false;
+        } else if (err && err.code === "conflict") {
+          // another version is already loading in; nothing else to do.
+        } else if (err && err.code === "rate_limited") {
+          ui.error = "Saving too fast — wait a moment and try again.";
+        } else {
+          ui.error = "Couldn't save just now. Try again in a moment.";
+        }
+        renderApp();
+      });
+    });
+  }
+
+  renderApp();
+})();
+</script>
+
+</body>
+</html>
