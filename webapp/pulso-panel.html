@@ -387,21 +387,21 @@
     <div class="day-pills" id="dayPills">
       <button type="button" class="day-pill" data-date="2026-08-30" onclick="renderDay('2026-08-30')">Sun 30<span class="pill-dot"></span></button>
     </div>
-    <div class="section-sub" id="d-sub" style="margin:14px 0 20px;">6 items logged &middot; no weigh-in that day</div>
+    <div class="section-sub" id="d-sub" style="margin:14px 0 20px;">7 items logged &middot; no weigh-in that day</div>
     <div class="intake-target">Target &middot; 1,850 kcal &middot; 155g protein &middot; 160g carbs &middot; 65g fat &middot; 35g fiber <span style="color:var(--accent);">&middot; revised 8/22</span></div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Calories<small>budget</small></div>
-        <div class="macro-read" id="d-cal-read">1,425<span class="sub" id="d-cal-sub">of 1,850 &middot; 425 left</span></div>
+        <div class="macro-read" id="d-cal-read">1,685<span class="sub" id="d-cal-sub">of 1,850 &middot; 165 left</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-cal-bar" style="width:77%"></div></div>
+      <div class="bar-track"><div class="bar-fill watch" id="d-cal-bar" style="width:91%"></div></div>
     </div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Protein<small>floor</small></div>
-        <div class="macro-read" id="d-pro-read">159g<span class="sub" id="d-pro-sub">of 155g &middot; 0g to go</span></div>
+        <div class="macro-read" id="d-pro-read">185g<span class="sub" id="d-pro-sub">of 155g &middot; 0g to go</span></div>
       </div>
       <div class="bar-track"><div class="bar-fill good" id="d-pro-bar" style="width:100%"></div></div>
     </div>
@@ -409,28 +409,28 @@
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Carbohydrate<small>target</small></div>
-        <div class="macro-read" id="d-carb-read">125g<span class="sub" id="d-carb-sub">of 160g &middot; 35g left</span></div>
+        <div class="macro-read" id="d-carb-read">138g<span class="sub" id="d-carb-sub">of 160g &middot; 22g left</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-carb-bar" style="width:78%"></div></div>
+      <div class="bar-track"><div class="bar-fill good" id="d-carb-bar" style="width:86%"></div></div>
     </div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Fat<small>budget</small></div>
-        <div class="macro-read" id="d-fat-read">37g<span class="sub" id="d-fat-sub">of 65g &middot; 28g left</span></div>
+        <div class="macro-read" id="d-fat-read">50g<span class="sub" id="d-fat-sub">of 65g &middot; 15g left</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-fat-bar" style="width:57%"></div></div>
+      <div class="bar-track"><div class="bar-fill good" id="d-fat-bar" style="width:77%"></div></div>
     </div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Fiber<small>floor</small></div>
-        <div class="macro-read" id="d-fiber-read">31g<span class="sub" id="d-fiber-sub">of 35g &middot; 5g to go</span></div>
+        <div class="macro-read" id="d-fiber-read">35g<span class="sub" id="d-fiber-sub">of 35g &middot; 1g to go</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-fiber-bar" style="width:87%"></div></div>
+      <div class="bar-track"><div class="bar-fill good" id="d-fiber-bar" style="width:99%"></div></div>
     </div>
 
-    <div class="d-items" id="d-items">Double espresso, black (negligible calories) &middot; 40g Kodiak Power Cakes mix, 1 whole egg, 150g egg whites, 75g mixed berries, water, hot sauce (breakfast) &middot; 440g turkey chili with kidney &amp; white beans, 40g plain nonfat Greek yogurt (lunch) &middot; 100g plain nonfat Greek yogurt, 40g mixed berries, 5g protein powder, 5g chia seeds (snack) &middot; 42 pistachio kernels (snack) &middot; Smoothie — 150g frozen strawberries, 2 scoops chocolate protein powder, 1 scoop PB2, water (snack)</div>
+    <div class="d-items" id="d-items">Double espresso, black (negligible calories) &middot; 40g Kodiak Power Cakes mix, 1 whole egg, 150g egg whites, 75g mixed berries, water, hot sauce (breakfast) &middot; 440g turkey chili with kidney &amp; white beans, 40g plain nonfat Greek yogurt (lunch) &middot; 100g plain nonfat Greek yogurt, 40g mixed berries, 5g protein powder, 5g chia seeds (snack) &middot; 42 pistachio kernels (snack) &middot; Smoothie — 150g frozen strawberries, 2 scoops chocolate protein powder, 1 scoop PB2, water (snack) &middot; 100g salmon, 100g broccoli, 100g squash (dinner)</div>
   </div>
 
   <!-- 7-Day Snapshot -->
@@ -470,10 +470,10 @@
       <line x1="20" y1="28.7" x2="320" y2="28.7" stroke="#4a4f54" stroke-width="1" stroke-dasharray="3 3"/>
 
       <!-- calorie marker (line resumes once a second day logs) -->
-      <circle cx="20" cy="47.8" r="3.5" fill="#5b8def"/>
+      <circle cx="20" cy="36.1" r="3.5" fill="#5b8def"/>
 
       <!-- protein marker (line resumes once a second day logs) -->
-      <circle cx="20" cy="26.6" r="3.5" fill="#d6663d"/>
+      <circle cx="20" cy="12.6" r="3.5" fill="#d6663d"/>
 
       <!-- day axis -->
       <text x="20" y="134" text-anchor="middle" font-size="11" font-weight="700" fill="#22c7de" font-family="-apple-system,sans-serif">SUN</text>
@@ -494,7 +494,7 @@
     </svg>
 
     <div class="week-summary">
-      <b style="color:var(--ink);">1,425 kcal &middot; 159g protein</b> logged so far this week (day 1 of 7, Sun&ndash;Sat) &middot; target 1,850 kcal / 155g protein per day <span style="color:var(--accent);">(revised 8/22)</span> &middot; prior week (8/23&ndash;8/29) closed at 10,322 kcal / 990g protein total across all 7 days
+      <b style="color:var(--ink);">1,685 kcal &middot; 185g protein</b> logged so far this week (day 1 of 7, Sun&ndash;Sat) &middot; target 1,850 kcal / 155g protein per day <span style="color:var(--accent);">(revised 8/22)</span> &middot; prior week (8/23&ndash;8/29) closed at 10,322 kcal / 990g protein total across all 7 days
       <div style="margin-top:8px; color:var(--faint); font-size:13px;">Line height = % of daily target. The hatched zone is simply days that haven't happened yet — nothing plotted there is invented. Resets each real Sun&ndash;Sat week; every past week stays archived in Weekly Summary.</div>
     </div>
   </div>
@@ -504,7 +504,7 @@
     <summary>
       <div class="section-head">
         <div class="detail-head-row"><div class="section-title">Today's Log</div><span class="detail-chevron">&#9662;</span></div>
-        <div class="section-sub">6 logged</div>
+        <div class="section-sub">7 logged</div>
       </div>
     </summary>
     <div class="detail-inner">
@@ -538,6 +538,11 @@
         <div class="log-macros">54g P &middot; 28g C &middot; 5g F &middot; 6g fiber</div>
         <div class="log-note">Snack — Roberto's own estimate. Pushed protein past the 155g floor for the first time this stretch.</div>
       </div>
+      <div class="log-entry">
+        <div class="log-top"><div class="log-name">100g salmon, 100g broccoli, 100g squash</div><div class="log-kcal">260</div></div>
+        <div class="log-macros">26g P &middot; 13g C &middot; 13g F &middot; 4g fiber</div>
+        <div class="log-note">Dinner — Roberto's own estimate. Closes out the day.</div>
+      </div>
     </div>
   </details>
 
@@ -546,7 +551,7 @@
     <summary>
       <div class="section-head">
         <div class="detail-head-row"><div class="section-title">Debrief</div><span class="detail-chevron">&#9662;</span></div>
-        <div class="section-sub">on pace</div>
+        <div class="section-sub">day closed</div>
       </div>
     </summary>
     <div class="detail-inner">
@@ -577,7 +582,13 @@
       <div class="debrief-item">
         <div class="debrief-bar good"></div>
         <div class="debrief-body">
-          <b>Protein smoothie clears the floor</b> — strawberries, chocolate protein powder, and PB2 brought the day to 1,425 kcal / 159g protein / 125g carb / 37g fat / 30.5g fiber. Protein cleared the 155g floor for the first time this stretch, and fiber's at 87% of target — an excellent day, with dinner still ahead and real room left in the calorie budget.
+          <b>Protein smoothie clears the floor</b> — strawberries, chocolate protein powder, and PB2 brought the day to 1,425 kcal / 159g protein / 125g carb / 37g fat / 30.5g fiber. Protein cleared the 155g floor for the first time this stretch.
+        </div>
+      </div>
+      <div class="debrief-item">
+        <div class="debrief-bar warn"></div>
+        <div class="debrief-body">
+          <b>Salmon dinner closes a strong day</b> — salmon, broccoli, and squash closed the day at 1,685 kcal / 185g protein / 138g carb / 50g fat / 34.5g fiber. Protein finished at 119% of the 155g floor — well cleared — and fiber essentially hit the 35g target. Calories closed at 91% of budget, the tightest margin of the day but still under. First day of the new tracking week (Sun 8/30&ndash;Sat 9/5) done — a strong opener.
         </div>
       </div>
     </div>
@@ -594,8 +605,8 @@
     <div class="detail-inner">
       <div class="panel-disclaimer">Simulated — my read of each person's public work applied to your log, not their real opinion or an actual review by them. Trimmed to a core 6 on 8/18 for a leaner read — 7 others retired, history preserved in the tracker, not deleted.</div>
 
-      <div class="panel-cadence-label">Today &middot; on pace</div>
-      <div class="panel-tag" style="margin-left:0;">Six entries so far — a black double espresso, a familiar Kodiak breakfast, a bean-heavy turkey chili for lunch, a Greek yogurt snack, pistachios, then a protein smoothie — plus a strong Tonal session this morning (4,619 lbs, 100% movement target, up from Saturday's 4,308). Day total: 1,425 kcal / 159g protein / 125g carb / 37g fat / 30.5g fiber. Protein cleared the 155g floor for the first time this stretch, fiber at 87% of target — an excellent day, with dinner still ahead. First day of a new tracking week (Sun 8/30&ndash;Sat 9/5).</div>
+      <div class="panel-cadence-label">Today &middot; day closed</div>
+      <div class="panel-tag" style="margin-left:0;">Seven entries — a black double espresso, a familiar Kodiak breakfast, a bean-heavy turkey chili for lunch, a Greek yogurt snack, pistachios, a protein smoothie, then a salmon dinner — plus a strong Tonal session this morning (4,619 lbs, 100% movement target, up from Saturday's 4,308). Day closed at 1,685 kcal / 185g protein / 138g carb / 50g fat / 34.5g fiber. Protein finished at 119% of the 155g floor, fiber essentially hit target, calories closed at 91% of budget — a strong opener to the new tracking week (Sun 8/30&ndash;Sat 9/5).</div>
 
       <div class="panel-cadence-label" style="margin-top:22px; padding-top:20px; border-top:1px solid var(--line-soft);">Last Week (Aug 23&ndash;29) &middot; unresolved</div>
       <div class="panel-row">
@@ -794,9 +805,9 @@
       items: '40g Kodiak Power Cakes mix, 1 whole egg, 100g egg whites, 75g mixed berries, water, hot sauce (breakfast) &middot; Wendy&rsquo;s Spicy Chicken Sandwich Combo &mdash; sandwich, medium natural-cut fries, ketchup (lunch) &middot; Mediterranean baked cod with tomatoes &amp; capers, roasted broccoli, roasted zucchini/yellow squash (dinner) &middot; 100g plain yogurt, 50g mixed berries, 1 scoop protein powder (snack)'
     },
     '2026-08-30': {
-      label: 'Sun, Aug 30 &middot; Today', weight: null, itemCount: 6,
-      cal: 1425, pro: 159, carb: 125, fat: 37, fiber: 30.5,
-      items: 'Double espresso, black — negligible calories &middot; 40g Kodiak Power Cakes mix, 1 whole egg, 150g egg whites, 75g mixed berries, water, hot sauce (breakfast) &middot; 440g turkey chili with kidney &amp; white beans, 40g plain nonfat Greek yogurt (lunch) &middot; 100g plain nonfat Greek yogurt, 40g mixed berries, 5g protein powder, 5g chia seeds (snack) &middot; 42 pistachio kernels (snack) &middot; Smoothie — 150g frozen strawberries, 2 scoops chocolate protein powder, 1 scoop PB2, water (snack)'
+      label: 'Sun, Aug 30 &middot; Today', weight: null, itemCount: 7,
+      cal: 1685, pro: 185, carb: 138, fat: 50, fiber: 34.5,
+      items: 'Double espresso, black — negligible calories &middot; 40g Kodiak Power Cakes mix, 1 whole egg, 150g egg whites, 75g mixed berries, water, hot sauce (breakfast) &middot; 440g turkey chili with kidney &amp; white beans, 40g plain nonfat Greek yogurt (lunch) &middot; 100g plain nonfat Greek yogurt, 40g mixed berries, 5g protein powder, 5g chia seeds (snack) &middot; 42 pistachio kernels (snack) &middot; Smoothie — 150g frozen strawberries, 2 scoops chocolate protein powder, 1 scoop PB2, water (snack) &middot; 100g salmon, 100g broccoli, 100g squash (dinner)'
     }
   };
 
