@@ -390,50 +390,50 @@
       <button type="button" class="day-pill" data-date="2026-09-01" onclick="renderDay('2026-09-01')">Tue 1<span class="pill-dot"></span></button>
       <button type="button" class="day-pill active" data-date="2026-09-03" onclick="renderDay('2026-09-03')">Thu 3<span class="pill-dot"></span></button>
     </div>
-    <div class="section-sub" id="d-sub" style="margin:14px 0 20px;">1 item logged &middot; no weigh-in that day</div>
+    <div class="section-sub" id="d-sub" style="margin:14px 0 20px;">2 items logged &middot; no weigh-in that day</div>
     <div class="intake-target">Target &middot; 1,850 kcal &middot; 155g protein &middot; 160g carbs &middot; 65g fat &middot; 35g fiber <span style="color:var(--accent);">&middot; revised 8/22</span></div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Calories<small>budget</small></div>
-        <div class="macro-read" id="d-cal-read">167<span class="sub" id="d-cal-sub">of 1,850 &middot; 1,683 left</span></div>
+        <div class="macro-read" id="d-cal-read">487<span class="sub" id="d-cal-sub">of 1,850 &middot; 1,363 left</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-cal-bar" style="width:9%"></div></div>
+      <div class="bar-track"><div class="bar-fill good" id="d-cal-bar" style="width:26%"></div></div>
     </div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Protein<small>floor</small></div>
-        <div class="macro-read" id="d-pro-read">25g<span class="sub" id="d-pro-sub">of 155g &middot; 130g to go</span></div>
+        <div class="macro-read" id="d-pro-read">60g<span class="sub" id="d-pro-sub">of 155g &middot; 95g to go</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-pro-bar" style="width:16%"></div></div>
+      <div class="bar-track"><div class="bar-fill good" id="d-pro-bar" style="width:39%"></div></div>
     </div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Carbohydrate<small>target</small></div>
-        <div class="macro-read" id="d-carb-read">3g<span class="sub" id="d-carb-sub">of 160g &middot; 157g left</span></div>
+        <div class="macro-read" id="d-carb-read">33g<span class="sub" id="d-carb-sub">of 160g &middot; 127g left</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-carb-bar" style="width:2%"></div></div>
+      <div class="bar-track"><div class="bar-fill good" id="d-carb-bar" style="width:21%"></div></div>
     </div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Fat<small>budget</small></div>
-        <div class="macro-read" id="d-fat-read">5g<span class="sub" id="d-fat-sub">of 65g &middot; 60g left</span></div>
+        <div class="macro-read" id="d-fat-read">12g<span class="sub" id="d-fat-sub">of 65g &middot; 53g left</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-fat-bar" style="width:8%"></div></div>
+      <div class="bar-track"><div class="bar-fill good" id="d-fat-bar" style="width:18%"></div></div>
     </div>
 
     <div class="macro">
       <div class="macro-top">
         <div class="macro-name">Fiber<small>floor</small></div>
-        <div class="macro-read" id="d-fiber-read">1g<span class="sub" id="d-fiber-sub">of 35g &middot; 34g to go</span></div>
+        <div class="macro-read" id="d-fiber-read">5g<span class="sub" id="d-fiber-sub">of 35g &middot; 30g to go</span></div>
       </div>
-      <div class="bar-track"><div class="bar-fill good" id="d-fiber-bar" style="width:3%"></div></div>
+      <div class="bar-track"><div class="bar-fill good" id="d-fiber-bar" style="width:14%"></div></div>
     </div>
 
-    <div class="d-items" id="d-items">40g spinach, 1 whole egg, 160g egg whites, black coffee (breakfast)</div>
+    <div class="d-items" id="d-items">40g spinach, 1 whole egg, 160g egg whites, black coffee (breakfast) &middot; Kodiak Buttermilk pancake (40g mix, water), 1 whole egg, 150g egg whites (breakfast)</div>
   </div>
 
   <!-- 7-Day Snapshot -->
@@ -484,13 +484,13 @@
       <circle cx="20" cy="36.1" r="3.5" fill="#5b8def"/>
       <circle cx="70" cy="87.0" r="3.5" fill="#5b8def"/>
       <circle cx="120" cy="77.0" r="3.5" fill="#5b8def"/>
-      <circle cx="220" cy="104.5" r="3.5" fill="#5b8def"/>
+      <circle cx="220" cy="90.3" r="3.5" fill="#5b8def"/>
 
       <!-- protein markers -->
       <circle cx="20" cy="12.6" r="3.5" fill="#d6663d"/>
       <circle cx="70" cy="86.2" r="3.5" fill="#d6663d"/>
       <circle cx="120" cy="68.7" r="3.5" fill="#d6663d"/>
-      <circle cx="220" cy="98.7" r="3.5" fill="#d6663d"/>
+      <circle cx="220" cy="79.5" r="3.5" fill="#d6663d"/>
 
       <!-- day axis -->
       <text x="20" y="134" text-anchor="middle" font-size="11" font-weight="700" fill="#c7cbce" font-family="-apple-system,sans-serif">SUN</text>
@@ -512,7 +512,7 @@
     </svg>
 
     <div class="week-summary">
-      <b style="color:var(--ink);">3,177 kcal &middot; 338g protein</b> logged so far this week (day 5 of 7, Sun&ndash;Sat, one gap day) &middot; target 1,850 kcal / 155g protein per day <span style="color:var(--accent);">(revised 8/22)</span> &middot; prior week (8/23&ndash;8/29) closed at 10,322 kcal / 990g protein total across all 7 days
+      <b style="color:var(--ink);">3,497 kcal &middot; 373g protein</b> logged so far this week (day 5 of 7, Sun&ndash;Sat, one gap day) &middot; target 1,850 kcal / 155g protein per day <span style="color:var(--accent);">(revised 8/22)</span> &middot; prior week (8/23&ndash;8/29) closed at 10,322 kcal / 990g protein total across all 7 days
       <div style="margin-top:8px; color:var(--faint); font-size:13px;">Line height = % of daily target. The hatched zone is days that haven't happened yet; Wednesday is a real gap day with no log — nothing plotted there is invented. Resets each real Sun&ndash;Sat week; every past week stays archived in Weekly Summary.</div>
     </div>
   </div>
@@ -522,7 +522,7 @@
     <summary>
       <div class="section-head">
         <div class="detail-head-row"><div class="section-title">Today's Log</div><span class="detail-chevron">&#9662;</span></div>
-        <div class="section-sub">1 logged</div>
+        <div class="section-sub">2 logged</div>
       </div>
     </summary>
     <div class="detail-inner">
@@ -530,6 +530,11 @@
         <div class="log-top"><div class="log-name">40g spinach, 1 whole egg, 160g egg whites, black coffee</div><div class="log-kcal">167</div></div>
         <div class="log-macros">25g P &middot; 3g C &middot; 5g F &middot; 1g fiber</div>
         <div class="log-note">Breakfast — Roberto's own estimate. First entry of day 5 of the tracking week (Sun 8/30&ndash;Sat 9/5); Wednesday 9/2 had no log.</div>
+      </div>
+      <div class="log-entry">
+        <div class="log-top"><div class="log-name">Kodiak Buttermilk pancake (40g mix, water), 1 whole egg (~50g), 150g egg whites, salt/pepper/hot sauce</div><div class="log-kcal">320</div></div>
+        <div class="log-macros">35g P &middot; 30g C &middot; 7g F &middot; 4g fiber</div>
+        <div class="log-note">Second breakfast — Claude estimate from Kodiak product nutrition + standard egg values.</div>
       </div>
     </div>
   </details>
@@ -546,7 +551,13 @@
       <div class="debrief-item">
         <div class="debrief-bar good"></div>
         <div class="debrief-body">
-          <b>Back on track after a gap day</b> — spinach, egg whites, one whole egg, and black coffee opened Thursday at 167 kcal / 25g protein / 3g carb / 5g fat / 1g fiber. Lean and clean, plenty of budget left for the rest of the day. Wednesday (9/2) had no log at all — a real gap, not zero intake, just untracked. Tuesday (day 3) closed at 775 kcal / 80g protein, also incomplete (breakfast + lunch only).
+          <b>Back on track after a gap day</b> — spinach, egg whites, one whole egg, and black coffee opened Thursday at 167 kcal / 25g protein / 3g carb / 5g fat / 1g fiber. Wednesday (9/2) had no log at all — a real gap, not zero intake, just untracked. Tuesday (day 3) closed at 775 kcal / 80g protein, also incomplete (breakfast + lunch only).
+        </div>
+      </div>
+      <div class="debrief-item">
+        <div class="debrief-bar good"></div>
+        <div class="debrief-body">
+          <b>Second breakfast, Kodiak pancake and more eggs</b> — the buttermilk pancake plus another egg and 150g egg whites brought the day to 487 kcal / 60g protein / 33g carb / 12g fat / 5g fiber. Two egg-forward meals back to back — protein's already at 39% of the floor with calories still light (26% of budget), plenty of room for the rest of the day.
         </div>
       </div>
     </div>
@@ -564,7 +575,7 @@
       <div class="panel-disclaimer">Simulated — my read of each person's public work applied to your log, not their real opinion or an actual review by them. Trimmed to a core 6 on 8/18 for a leaner read — 7 others retired, history preserved in the tracker, not deleted.</div>
 
       <div class="panel-cadence-label">Today &middot; on pace</div>
-      <div class="panel-tag" style="margin-left:0;">One entry so far — spinach, one whole egg, egg whites, and black coffee for breakfast. Day total: 167 kcal / 25g protein / 3g carb / 5g fat / 1g fiber. Lean opening with the whole day still ahead. Day 5 of the tracking week (Sun 8/30&ndash;Sat 9/5) — Wednesday (9/2) had no log at all, a genuine gap; Tuesday closed incomplete at 775 kcal / 80g protein.</div>
+      <div class="panel-tag" style="margin-left:0;">Two entries so far — spinach/egg/egg whites/coffee, then a Kodiak buttermilk pancake with another egg and egg whites. Day total: 487 kcal / 60g protein / 33g carb / 12g fat / 5g fiber. Two egg-forward meals back to back — protein already at 39% of the floor, calories still light at 26% of budget. Day 5 of the tracking week (Sun 8/30&ndash;Sat 9/5) — Wednesday (9/2) had no log at all, a genuine gap; Tuesday closed incomplete at 775 kcal / 80g protein.</div>
 
       <div class="panel-cadence-label" style="margin-top:22px; padding-top:20px; border-top:1px solid var(--line-soft);">Last Week (Aug 23&ndash;29) &middot; unresolved</div>
       <div class="panel-row">
@@ -778,9 +789,9 @@
       items: 'Egg scramble — 3 whole eggs, diced tomatoes, spinach, jalape&ntilde;os (breakfast) &middot; Grilled chicken breast, green beans, maduros (fried sweet plantains) (lunch)'
     },
     '2026-09-03': {
-      label: 'Thu, Sep 3 &middot; Today', weight: null, itemCount: 1,
-      cal: 167, pro: 25, carb: 3, fat: 5, fiber: 1,
-      items: '40g spinach, 1 whole egg, 160g egg whites, black coffee (breakfast)'
+      label: 'Thu, Sep 3 &middot; Today', weight: null, itemCount: 2,
+      cal: 487, pro: 60, carb: 33, fat: 12, fiber: 5,
+      items: '40g spinach, 1 whole egg, 160g egg whites, black coffee (breakfast) &middot; Kodiak Buttermilk pancake (40g mix, water), 1 whole egg, 150g egg whites (breakfast)'
     }
   };
 
